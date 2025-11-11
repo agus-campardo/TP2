@@ -29,15 +29,15 @@ public class Estudiante {
 
 
     public int calcularFila(int id, int ladoAula){
-        int estPorFila = (ladoAula + 1) / 2;                                           // O(1)
-        int res = id / estPorFila;                                                     // O(1)
-        return res;                                                                    // O(1)
-    } // O(R) + O(1) + O(1) + O(1) = O(R)
+        int estPorFila = (ladoAula + 1) / 2;                                    // O(1)
+        int res = id / estPorFila;                                              // O(1)
+        return res;                                                             // O(1)
+    } // O(1) + O(1) + O(1) = O(1)
 
     public int calcularColumna(int id, int ladoAula){
-        int estPorFila = (ladoAula + 1) / 2;                                        // O(1)
-        int res = (id % estPorFila)*2;                                              // O(1)
-        return res;                                                                 // O(1)
-    } // O(R) + O(1) + O(1) + O(1) = O(R)
+        int estPorFila = (ladoAula + 1) / 2;                                    // O(1)
+        int res = (id % estPorFila)*2;                                          // O(1)
+        return res;                                                             // O(1)
+    } // O(1) + O(1) + O(1) = O(1)
 
 }

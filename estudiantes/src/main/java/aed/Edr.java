@@ -11,15 +11,15 @@ public class Edr {
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
-        this.examenCanonico = new Examen(ExamenCanonico.length);                        // O(R)
-        this.examenCanonico.preguntas = ExamenCanonico;                                 // O(1)
-        this.estudiantes = new Estudiante[Cant_estudiantes];                            // O(E)
-        this.ladoAula = LadoAula;                                                       // O(1)
-        this.cantEst = Cant_estudiantes;
-        this.cantEntregados = 0;
-        this.idPorNotas = new HeapMin(Cant_estudiantes);                                // O(E)
-        for (int i = 0; i < Cant_estudiantes; i++){                                     // O(E)
-            this.estudiantes[i] = new Estudiante(i, ExamenCanonico.length, ladoAula);            // O(R)
+        this.examenCanonico = new Examen(ExamenCanonico.length);                            // O(R)
+        this.examenCanonico.preguntas = ExamenCanonico;                                     // O(1)
+        this.estudiantes = new Estudiante[Cant_estudiantes];                                // O(E)
+        this.ladoAula = LadoAula;                                                           // O(1)
+        this.cantEst = Cant_estudiantes;                                                    // O(1)
+        this.cantEntregados = 0;                                                            // O(1)
+        this.idPorNotas = new HeapMin(Cant_estudiantes);                                    // O(E)
+        for (int i = 0; i < Cant_estudiantes; i++){                                         // O(E)
+            this.estudiantes[i] = new Estudiante(i, ExamenCanonico.length, ladoAula);       // O(R)
         }
     } // O(R) + O(1) + O(E) + O(1) + O(E) * O(R) = O(E*R)
     
