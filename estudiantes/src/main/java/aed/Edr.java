@@ -102,11 +102,29 @@ public class Edr {
 //------------------------------------------------------------------------CONSULTAR DARK WEB--------------------------------------------------------------
 
 
-    public void consultarDarkWeb(int n, int[] examenDW) {
-        if(n <= this.cantEst){
-            
+    public void consultarDarkWeb(int k, int[] examenDW) {
+        int notaNueva = calcularNota(examenDW, this.examenCanonico.preguntas);
+        if(k <= this.cantEst){
+            if(k <= cantEst - cantEntregados){
+                for (int i = 0; i < k; i++){                        // O(K)
+                    int e = idPorNotas.desencolar();
+                    estudiantes[e].examen.preguntas = examenDW;
+                    estudiantes[e].nota = notaNueva;
+                    idPorNotas.encolar(e);
+                }
+            }
         }
     }
+
+    public int calcularNota(int[] otro, int[] canonico){
+        int nota = 0;                                                           // O(1)
+        for (int i = 0; i < canonico.length; i++){                              // O(R)
+            if (otro[i] == canonico[i]){                                        // O(1)
+                nota += 10;                                                     // O(1)
+            }                   
+        }
+        return nota;
+    } // Complejidad: O(R)
 
 
 //------------------------------------------------------------------------ENTREGAR------------------------------------------------------------------------
