@@ -105,9 +105,7 @@ public class Edr {
 
 
     public void entregar(int estudiante) {
-        if (estudiante >=0 && estudiante < estudiantes.length) {
-            estudiantes.[estudiante].entregar();
-        }
+        throw new UnsupportedOperationException("Sin implementar");
     }
 
 
