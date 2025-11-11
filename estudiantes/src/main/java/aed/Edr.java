@@ -13,7 +13,7 @@ public class Edr {
     private int cantPreguntas;
     // Usamos muchos atributos ya que no nos dieron limite de almacenamiento, pero muchos se pueden sacar de otro lado
 
-
+    // Se puede modificar si agregamos cosas
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
         this.examenCanonico = new Examen(ExamenCanonico.length);                            // O(R)
         this.examenCanonico.preguntas = ExamenCanonico;                                     // O(1)
@@ -34,7 +34,7 @@ public class Edr {
 
 //------------------------------------------------------------------------NOTAS--------------------------------------------------------------------------
 
-    
+    // Terminado
     public double[] notas(){
         double[] res = new double[estudiantes.length];                                  // O(E)
         for (int i = 0; i < estudiantes.length; i++){                                   // O(E)
@@ -46,7 +46,7 @@ public class Edr {
 
 //------------------------------------------------------------------------COPIARSE------------------------------------------------------------------------
 
-// Falta terminar
+    // Falta terminar
     public void copiarse(int est) {
         int estPorFila = (ladoAula + 1) / 2;                                            // O(1)
         ArrayList<Estudiante> vecinos = new ArrayList<>();                              // O(1)
@@ -88,7 +88,7 @@ public class Edr {
 
 //------------------------------------------------------------------------RESOLVER------------------------------------------------------------------------
 
-
+    // Terminado
     public void resolver(int estudiante, int NroEjercicio, int res) {
         estudiantes[estudiante].examen.preguntas[NroEjercicio] = res;                               // O(1)
         if (examenCanonico.preguntas[NroEjercicio] == res){                                         // O(1)
@@ -102,7 +102,7 @@ public class Edr {
 
 //------------------------------------------------------------------------CONSULTAR DARK WEB--------------------------------------------------------------
 
-
+    // Falta terminar
     public void consultarDarkWeb(int k, int[] examenDW) {
         int notaNueva = calcularNota(examenDW, this.examenCanonico.preguntas);
         int i = 0;
@@ -151,7 +151,7 @@ public class Edr {
 
 //------------------------------------------------------------------------ENTREGAR------------------------------------------------------------------------
 
-
+    // Terminado
     public void entregar(int estudiante) {
         estudiantes[estudiante].entrego = true;
         this.cantEntregados += 1;
@@ -160,7 +160,7 @@ public class Edr {
 
 //------------------------------------------------------------------------CORREGIR------------------------------------------------------------------------
 
-
+    // No se
     public NotaFinal[] corregir() {
         
         // lleno el array de res con notasfinal de estudiantes, 
@@ -269,7 +269,7 @@ public class Edr {
 
 //------------------------------------------------------------------------CHEQUEAR COPIAS-----------------------------------------------------------------
 
-
+    // Terminado
     public int[] chequearCopias() {
         int[][] grilla = new int[this.cantPreguntas][10];               // Creo la grilla de calificaciones                     // O(R)
         int tramposos = 0;                                                                                                      // O(1)
