@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Edr {
     private Estudiante[] estudiantes;
     private Examen examenCanonico;
-    private heapMin idPorNotas;
+    private HeapMin idPorNotas;
     private int ladoAula;
 
 
@@ -105,7 +105,9 @@ public class Edr {
 
 
     public void entregar(int estudiante) {
-        throw new UnsupportedOperationException("Sin implementar");
+        if (estudiante >=0 && estudiante < estudiantes.length) {
+            estudiantes.[estudiante].entregar();
+        }
     }
 
 
