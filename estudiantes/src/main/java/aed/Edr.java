@@ -26,7 +26,6 @@ public class Edr {
 
 //------------------------------------------------------------------------NOTAS--------------------------------------------------------------------------
 
-    //terminado
     public double[] notas(){
         double[] res = new double[estudiantes.length];                                  // O(E)
         for (int i = 0; i < estudiantes.length; i++){                                   // O(E)
