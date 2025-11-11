@@ -48,4 +48,9 @@ public class Examen {
     }
     
 
+//----------- resolverPregunta 
+    public void resolverPregunta(int nroPregunta, int respuesta) {
+        preguntas[nroPregunta] = respuesta;
+    }
+
 }
