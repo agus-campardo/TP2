@@ -271,20 +271,20 @@ public class Edr {
 
 
     public int[] chequearCopias() {
-        int[][] grilla = new int[this.cantPreguntas][10];
-        int tramposos = 0;
+        int[][] grilla = new int[this.cantPreguntas][10];               // Creo la grilla de calificaciones
+        int tramposos = 0;                                              
         for (int i = 0; i < cantEst; i++){
             for (int j = 0; j < this.cantPreguntas; j++){
-                int respuesta = estudiantes[i].examen.preguntas[j];
-                grilla[j][respuesta] +=1;
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta
+                grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta
             }
         }
-        int umbral = cantEst / 4;
+        int umbral = cantEst / 4;                                       // Guardo el 25% de los alumnos
         for (int i = 0; i < cantEst; i++){
             for (int j = 0; j < cantPreguntas; j++){
-                int respuesta = estudiantes[i].examen.preguntas[j];
-                if (grilla[j][respuesta] < umbral) {
-                    estudiantes[i].sospechoso = false;
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta
+                if (grilla[j][respuesta] < umbral) {                    // Me fijo si respondio por debajo del 25%
+                    estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio
                     break;
                 }
             }
@@ -295,7 +295,7 @@ public class Edr {
         int[] res = new int[tramposos];
         int k = 0;
         for (int i = 0; i < cantEst; i++){
-            if (estudiantes[i].sospechoso){
+            if (estudiantes[i].sospechoso){                             // Si es tramposo lo meto a la lista de tramposos
                 res[k] = i;
                 k++;
             }
