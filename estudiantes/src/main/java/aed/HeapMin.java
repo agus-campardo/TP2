@@ -35,7 +35,7 @@ public class HeapMin {
 
 
 //------------------------------------------------------------------------Constructor--------------------------------------------------
-    public heapMin(int cantEstudiantes) {
+    public HeapMin(int cantEstudiantes) {
         this.capacidad = cantEstudiantes;                       // O(1)
         this.tamaño = cantEstudiantes;                          // O(1)
         this.heap = new int[cantEstudiantes];                   // O(E)
