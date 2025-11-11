@@ -7,7 +7,7 @@ public class Estudiante {
     int fila;
     int columna;
     int correctas;
-    double nota;
+    int nota;
     boolean entrego;
     boolean sospechoso;
     Examen examen;
