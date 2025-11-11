@@ -17,12 +17,12 @@ public class Examen {
 //------------------------------------------------------------------------Preguntas faltantes--------------------------------------------------
 
     public int cantidadPreguntasFaltantes(Examen vecino){
-        int res = 0;                                                                    // O(1)
+        int faltantes = 0;                                                                    // O(1)
         for (int i = 0; i < this.preguntas.length; i++){                                // O(R)
             if (this.preguntas[i] == -1 && vecino.preguntas[i] != -1)                   // O(1)
-                res += 1;                                                               // O(1)
+                faltantes += 1;                                                               // O(1)
         }
-        return res;                                                                     // O(1)
+        return faltantes;                                                                     // O(1)
     }// Complejidad: O(R)
 
 //------------------------------------------------------------------------Copiar pregunta-------------------------------------------------------
