@@ -105,7 +105,7 @@ public class Edr {
 
 
     public void entregar(int estudiante) {
-        throw new UnsupportedOperationException("Sin implementar");
+        estudiantes[estudiante].entrego = true;
     }
 
 
