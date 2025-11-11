@@ -41,7 +41,7 @@ public class HeapMin {
         this.heap = new int[cantEstudiantes];                   // O(E)
         this.posiciones = new int[cantEstudiantes];             // O(E)
         this.notas = new int[cantEstudiantes];                  // O(E)
-        this.armarHeap();                         // O(E)
+        this.armarHeap();                                       // O(E)
     } // Complejidad: O(E)
 
     private void armarHeap() {
