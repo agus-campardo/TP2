@@ -6,6 +6,8 @@ public class Edr {
     private Examen examenCanonico;
     private HeapMin idPorNotas;
     private int ladoAula;
+    private int cantEst;
+    private int cantEntregados;
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
@@ -13,6 +15,8 @@ public class Edr {
         this.examenCanonico.preguntas = ExamenCanonico;                                 // O(1)
         this.estudiantes = new Estudiante[Cant_estudiantes];                            // O(E)
         this.ladoAula = LadoAula;                                                       // O(1)
+        this.cantEst = Cant_estudiantes;
+        this.cantEntregados = 0;
         this.idPorNotas = new HeapMin(Cant_estudiantes);                                // O(E)
         for (int i = 0; i < Cant_estudiantes; i++){                                     // O(E)
             this.estudiantes[i] = crearEstudiante(i, ExamenCanonico.length);            // O(R)
@@ -99,7 +103,9 @@ public class Edr {
 
 
     public void consultarDarkWeb(int n, int[] examenDW) {
-        throw new UnsupportedOperationException("Sin implementar");
+        if(n <= this.cantEst){
+            
+        }
     }
 
 
@@ -108,6 +114,7 @@ public class Edr {
 
     public void entregar(int estudiante) {
         estudiantes[estudiante].entrego = true;
+        this.cantEntregados += 1;
     }
 
 
