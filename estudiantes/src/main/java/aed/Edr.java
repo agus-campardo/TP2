@@ -9,6 +9,7 @@ public class Edr {
     private int cantEst;
     private int cantEntregados;
     private int cantSospechosos;
+    private HeapMin estEnAulaPorNotas;
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
@@ -20,6 +21,8 @@ public class Edr {
         this.cantEntregados = 0;                                                            // O(1)
         this.cantSospechosos = 0;
         this.idPorNotas = new HeapMin(Cant_estudiantes);                                    // O(E)
+        this.estEnAulaPorNotas = new HeapMin(Cant_estudiantes);                             // O(E)
+        
         for (int i = 0; i < Cant_estudiantes; i++){                                         // O(E)
             this.estudiantes[i] = new Estudiante(i, ExamenCanonico.length, ladoAula);       // O(R)
         }
@@ -90,6 +93,7 @@ public class Edr {
         }
         estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;                      // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);        // O(log E)
+        this.estEnAulaPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota); // O(log(E))
     }
 
 
@@ -123,10 +127,12 @@ public class Edr {
 
     public void intercambiarExamen(int hasta, int notaNueva, int[] examenDW){
         for (int i = 0; i < hasta; i++){                                        // O(K)
-            int e = idPorNotas.desencolar();                                    // O(log E)
+            int e = estEnAulaPorNotas.desencolar();                             // O(log E) como max
             estudiantes[e].examen.preguntas = examenDW;                         // O(1)
             estudiantes[e].nota = notaNueva;                                    // O(1)
-            idPorNotas.encolar(e);                                              // O(log E)
+            estEnAulaPorNotas.encolar(e);                                       // O(log E)
+            idPorNotas.actualizarNotaDesdeHandle(e, estudiantes[e].nota);       // O(log E)
+
         }
     }
 
