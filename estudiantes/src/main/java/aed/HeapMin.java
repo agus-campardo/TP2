@@ -35,18 +35,16 @@ public class HeapMin {
 
 
 //------------------------------------------------------------------------Constructor--------------------------------------------------
-    
-    // SI TODOS INICIAN EN 0, PONERLOS EN 0 SIN INT[] NOTAS INICIALES
-    public heapMin(int cantEstudiantes, int[] notasIniciales) {
+    public heapMin(int cantEstudiantes) {
         this.capacidad = cantEstudiantes;                       // O(1)
         this.tamaño = cantEstudiantes;                          // O(1)
         this.heap = new int[cantEstudiantes];                   // O(E)
         this.posiciones = new int[cantEstudiantes];             // O(E)
         this.notas = new int[cantEstudiantes];                  // O(E)
-        this.armarHeap(notasIniciales);                         // O(E)
+        this.armarHeap();                         // O(E)
     } // Complejidad: O(E)
 
-    private void armarHeap(int[] notasIniciales) {
+    private void armarHeap() {
         for (int i = 0; i < capacidad; i++) {         // Recorre todos los estudiantes                        // O(E)
             heap[i] = i;                              // Guarda el ID del estudiante                          // O(1)
             posiciones[i] = i;                        // Registra en que posicion del heap esta ese id        // O(1)
@@ -121,7 +119,7 @@ public class HeapMin {
         while (pos < tamaño) { 
             int izq = 2 * pos + 1; 
             int der = 2 * pos + 2;
-            int menor = 0; 
+            int menor = pos; 
             if (izq < tamaño && debeSubir(izq, menor))
                 menor = izq;
             else if (der < tamaño && debeSubir(der, menor))
