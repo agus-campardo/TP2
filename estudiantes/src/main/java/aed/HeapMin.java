@@ -1,11 +1,11 @@
 package aed; 
 
 public class HeapMin {
-     int[] heap;         // ids de estudiantes  
-     int[] posiciones;   // posiciones[id] = índice en heap 
-     int[] notas;        // notas[id] = nota actual 
-     int tamaño;         // cuántos hay realmente (por si desencolamos gente)
-     int capacidad;      // max. estudiantes que puede tener el heap (siempre = E)
+     private int[] heap;         // ids de estudiantes  
+     private int[] posiciones;   // posiciones[id] = índice en heap 
+     private int[] notas;        // notas[id] = nota actual 
+     private int tamaño;         // cuántos hay realmente (por si desencolamos gente)
+     private int capacidad;      // max. estudiantes que puede tener el heap (siempre = E)
 
 
 //------------------------------------------------------------------------Handle--------------------------------------------------------
@@ -118,21 +118,21 @@ public class HeapMin {
 //------------------------------------------------------------------------SiftDown--------------------------------------------------------------
 
     private void siftDown(int pos) { 
-        while (pos < tamaño) { 
-            int izq = 2 * pos + 1; 
-            int der = 2 * pos + 2;
-            int menor = pos; 
-            if (izq < tamaño && debeSubir(izq, menor))
-                menor = izq;
-            else if (der < tamaño && debeSubir(der, menor))
-                menor = der;
-            else if (menor == pos)
-                break; // encontró su lugar 
-            else 
-                intercambiar(pos, menor);
-                pos = menor; // seguimos viendo desde la nueva pos
-        }
-    }// Complejidad = O(log E)
+    while (pos < tamaño) {                                           // O(log E)
+        int izq = 2 * pos + 1;                                       // O(1)
+        int der = 2 * pos + 2;                                       // O(1)
+        int menor = pos;                                             // O(1)
+        if (izq < tamaño && debeSubir(izq, menor))                   // O(1)
+            menor = izq;
+        if (der < tamaño && debeSubir(der, menor))                   // O(1)
+            menor = der;
+        if (menor == pos)                                            // O(1)
+            break;                                                   // Ya está en el lugar correcto
+        intercambiar(pos, menor);                                    // O(1)
+        pos = menor;                                                 // O(1)
+    }
+} // Complejidad total: O(log E)
+
 
 //------------------------------------------------------------------------Extras--------------------------------------------------------
 

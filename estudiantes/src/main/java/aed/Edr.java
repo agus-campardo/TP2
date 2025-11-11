@@ -29,7 +29,7 @@ public class Edr {
 
 //------------------------------------------------------------------------NOTAS--------------------------------------------------------------------------
 
-
+    //terminado
     public double[] notas(){
         double[] res = new double[estudiantes.length];                                  // O(E)
         for (int i = 0; i < estudiantes.length; i++){                                   // O(E)
@@ -83,7 +83,7 @@ public class Edr {
 
 //------------------------------------------------------------------------RESOLVER------------------------------------------------------------------------
 
-// Falta actualizar el heap
+
     public void resolver(int estudiante, int NroEjercicio, int res) {
         estudiantes[estudiante].examen.preguntas[NroEjercicio] = res;                               // O(1)
         if (examenCanonico.preguntas[NroEjercicio] == res){                                         // O(1)
