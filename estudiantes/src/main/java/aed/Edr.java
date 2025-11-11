@@ -10,6 +10,8 @@ public class Edr {
     private int cantEst;
     private int cantEntregados;
     private int cantSospechosos;
+    private int cantPreguntas;
+    // Usamos muchos atributos ya que no nos dieron limite de almacenamiento, pero muchos se pueden sacar de otro lado
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
@@ -20,6 +22,7 @@ public class Edr {
         this.cantEst = Cant_estudiantes;                                                    // O(1)
         this.cantEntregados = 0;                                                            // O(1)
         this.cantSospechosos = 0;
+        this.cantPreguntas = ExamenCanonico.length;
         this.idPorNotas = new HeapMin(Cant_estudiantes);                                    // O(E)
         this.estEnAulaPorNotas = new HeapMin(Cant_estudiantes);                             // O(E)
         
@@ -268,6 +271,9 @@ public class Edr {
 
 
     public int[] chequearCopias() {
-        throw new UnsupportedOperationException("Sin implementar");
+        int[] res = new int[0];
+        int[][] grilla = new int[this.cantPreguntas][10];
+        int tramposos = 0;
+        return res;
     }
 }
