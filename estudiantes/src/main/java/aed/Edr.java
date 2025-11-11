@@ -96,15 +96,16 @@ public class Edr {
 
     public void consultarDarkWeb(int k, int[] examenDW) {
         int notaNueva = calcularNota(examenDW, this.examenCanonico.preguntas);
-        if(k <= this.cantEst){
-            if(k <= cantEst - cantEntregados){
-                for (int i = 0; i < k; i++){                            // O(K)
-                    int e = idPorNotas.desencolar();
-                    estudiantes[e].examen.preguntas = examenDW;
-                    estudiantes[e].nota = notaNueva;
-                    idPorNotas.encolar(e);
-                }
+        if(k <= this.cantEst){                                      // Si los que consultanDW son menos que la cant de est
+            if(k <= cantEst - cantEntregados){                      // Si hay menos personas que cantidad de entregados
+                intercambiarExamen(k, notaNueva, examenDW);
             }
+            else{                                                   // Si k es mayor a cantEst - cantEntregados
+                intercambiarExamen(cantEst - cantEntregados, notaNueva, examenDW);
+            }
+        }
+        else{                                                       // Si todos los estudiantes consultanDW
+            intercambiarExamen(cantEst, notaNueva, examenDW);
         }
     }
 
@@ -117,6 +118,15 @@ public class Edr {
         }
         return nota;
     } // Complejidad: O(R)
+
+    public void intercambiarExamen(int hasta, int notaNueva, int[] examenDW){
+        for (int i = 0; i < hasta; i++){                                        // O(K)
+            int e = idPorNotas.desencolar();                                    // O(log E)
+            estudiantes[e].examen.preguntas = examenDW;                         // O(1)
+            estudiantes[e].nota = notaNueva;                                    // O(1)
+            idPorNotas.encolar(e);                                              // O(log E)
+        }
+    }
 
 
 //------------------------------------------------------------------------ENTREGAR------------------------------------------------------------------------
