@@ -8,6 +8,7 @@ public class Edr {
     private int ladoAula;
     private int cantEst;
     private int cantEntregados;
+    private int cantSospechosos;
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
@@ -17,6 +18,7 @@ public class Edr {
         this.ladoAula = LadoAula;                                                           // O(1)
         this.cantEst = Cant_estudiantes;                                                    // O(1)
         this.cantEntregados = 0;                                                            // O(1)
+        this.cantSospechosos = 0;
         this.idPorNotas = new HeapMin(Cant_estudiantes);                                    // O(E)
         for (int i = 0; i < Cant_estudiantes; i++){                                         // O(E)
             this.estudiantes[i] = new Estudiante(i, ExamenCanonico.length, ladoAula);       // O(R)
@@ -142,8 +144,109 @@ public class Edr {
 
 
     public NotaFinal[] corregir() {
-        throw new UnsupportedOperationException("Sin implementar");
+        
+        // lleno el array de res con notasfinal de estudiantes, 
+        // ordenadas de menor a mayor y desempatadas por menor id
+        NotaFinal[]  res = notasFinalesEnOrdenInverso();                // O(E*log(E))
+
+        // doy vuelta el array de res para que me quede en el orden correcto,
+        // notas ordenadas de mayor a menor, desmpatada por mayor id
+        NotaFinal[] resOrdenCorecto = invertirOrden(res);               // O(E)
+        
+        // saco del array de notaFinal, los estudiantes que se copiaron
+        NotaFinal[] resOrdenCorectoSinCopiones = sacarSospechosos(resOrdenCorecto); // O(E), en el peor caso (ninguno se copio)
+     
+        // restauro idspornota
+        restuararIdPorNotasCompleto();                                  // O(E*log(E))
+
+        // devuelvo las notas de los examenes de los estudiantes que 
+        //no se hayan copiado ordenada por NotaFinal.nota de forma
+        //decreciente. En caso de empate, se desempata por mayor 
+        //NotaFinal.id de estudiante
+        return resOrdenCorectoSinCopiones;                             // - o(1)
+
     }
+
+    private NotaFinal[] notasFinalesEnOrdenInverso(){                   // O(E*log(E))
+
+        // lleno el array de res con notasfinal de estudiantes, ordenadas de menor a mayor y desempatadas por menor id
+
+        NotaFinal[] res = new NotaFinal[(this.cantEst)];                // - O(E)
+        int i = 0;                                                      // - O(1)
+
+        while(i<this.cantEst){                                          // repito el cuerpo E-veces - O(E*(cuerpo))
+            
+            int id = idPorNotas.desencolar();                           // desencolo ids por nota al id con menor nota - O(log(E)) como maximo.
+            Estudiante est = this.estudiantes[id];                      // obtengo el objeto de clase Estudiante corespondiente al id - O(1)
+
+            NotaFinal notaFinalEst = new NotaFinal(est.nota, est.id);   // creo la nota final del estudiante con sus datos de sus atributos - O(1)
+
+            res[i] = notaFinalEst;                                      // se agrega la notaFinal del estudiante con menor nota en la posicion 
+                                                                        // i-esima del res -  O(1)
+            i = i + 1;                                                  // aumeento en 1 el iterador -  O(1)
+
+        }
+
+        return res;                                                     // - O(1)
+    }
+
+    private NotaFinal[] invertirOrden( NotaFinal[] res ){               // - O(E)
+
+        // da vuelta el orden de un array siendo E la longitud de dicho array
+
+        NotaFinal[] resOrdenCorecto = new NotaFinal[(res.length)];      // - O(E)
+        int j = 0;                                                      // - O(1)
+
+        while(j<res.length){                                          // repito el cuerpo E-veces - O(E*(cuerpo))
+
+            resOrdenCorecto[j]=res[res.length-1-j];                     // se invierte el orden de la ubicacion de elementos
+                                                                        // lo que estaba ultimo en un array, ahota esta primero en el otro - O(1)
+            j = j + 1;                                                  // aumento en 1 el itreador j - O(1)
+
+        }
+
+        return resOrdenCorecto;                                         // - O(1)
+    }
+
+    private NotaFinal[] sacarSospechosos(NotaFinal[] conSospechosos){     // - O(E) , en el peor caso
+
+        //saco del array los estudiantes que se copiaron.
+        //para eso a todos los estudiantes que no se copiaron,
+        // los agrego a otro array
+
+        int cantNoSospechosos = this.cantEst-this.cantSospechosos;        // cantidad de alumnos que no son sopechosos de copiarse - O(1)
+        NotaFinal[] sinSospechosos = new NotaFinal[cantNoSospechosos];    // en el peor caso esto es de longitud E - O(E)
+
+        int j = 0;                                                        // iterador sobre el array de notafinal de estudiantes sin copiones - O(1)
+        int i = 0;                                                        // iterador sobre el array de NotaFinal de estudiantes con copiones - O(1)
+
+        while(i<conSospechosos.length){                                   // itero sobla el array de NotaFinal de estudiantes  
+            int id = conSospechosos[i]._id;                         
+            if(this.estudiantes[id].sospechoso==false){                   // si el estudiante no es sospechoso de copiarse,
+                sinSospechosos[j]=conSospechosos[i];                      // lo agrego al array de notaFinal de estudiantes que no se copiaron - O(1)                j=j+1;
+            }
+
+            i=i+1;
+        }                                                                 // la complejidad de este while en el peor caso es - O(E)
+
+        return sinSospechosos;                                            // - O(1)
+
+    }   
+
+    private void restuararIdPorNotasCompleto(){                        // O(E*log(E))
+        // apartir de Estudiantes, se  llena idpornotas con
+        // todos los elementos de Estduiantes, se asume que 
+        // id por nota esta vacio al momento de este proc.
+
+        int k = 0;                                                      // inicializo el iterador - O(1)
+
+        while (k<this.cantEst){                                         // repito el cuerpo E-veces - O(E*(cuerpo))
+
+            this.idPorNotas.encolar(k);                                 // encolo uno a uno cada estudiante con su id -O(log(E)) como maximo
+
+        }
+    }
+
 
 
 //------------------------------------------------------------------------CHEQUEAR COPIAS-----------------------------------------------------------------
