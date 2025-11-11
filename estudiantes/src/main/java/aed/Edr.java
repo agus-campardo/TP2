@@ -271,9 +271,35 @@ public class Edr {
 
 
     public int[] chequearCopias() {
-        int[] res = new int[0];
         int[][] grilla = new int[this.cantPreguntas][10];
         int tramposos = 0;
+        for (int i = 0; i < cantEst; i++){
+            for (int j = 0; j < this.cantPreguntas; j++){
+                int respuesta = estudiantes[i].examen.preguntas[j];
+                grilla[j][respuesta] +=1;
+            }
+        }
+        int umbral = cantEst / 4;
+        for (int i = 0; i < cantEst; i++){
+            for (int j = 0; j < cantPreguntas; j++){
+                int respuesta = estudiantes[i].examen.preguntas[j];
+                if (grilla[j][respuesta] < umbral) {
+                    estudiantes[i].sospechoso = false;
+                    break;
+                }
+            }
+            if (estudiantes[i].sospechoso){
+                tramposos += 1;
+            }
+        }
+        int[] res = new int[tramposos];
+        int k = 0;
+        for (int i = 0; i < cantEst; i++){
+            if (estudiantes[i].sospechoso){
+                res[k] = i;
+                k++;
+            }
+        }
         return res;
     }
 }
