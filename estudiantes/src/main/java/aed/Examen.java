@@ -9,7 +9,7 @@ public class Examen {
 
     public Examen(int cantPreguntas){
         this.preguntas = new int[cantPreguntas];                                        // O(R)
-        for (int i = 0; i < cantPreguntas -1; i++){                                     // O(R)
+        for (int i = 0; i < cantPreguntas; i++){                                        // O(R)
             this.preguntas[i] = -1;                                                     // O(1)
         }
     } // Complejidad: O(R)
