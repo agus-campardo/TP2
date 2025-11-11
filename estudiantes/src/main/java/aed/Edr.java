@@ -5,11 +5,11 @@ public class Edr {
     private Estudiante[] estudiantes;
     private Examen examenCanonico;
     private HeapMin idPorNotas;
+    private HeapMin estEnAulaPorNotas;
     private int ladoAula;
     private int cantEst;
     private int cantEntregados;
     private int cantSospechosos;
-    private HeapMin estEnAulaPorNotas;
 
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
@@ -102,9 +102,20 @@ public class Edr {
 
     public void consultarDarkWeb(int k, int[] examenDW) {
         int notaNueva = calcularNota(examenDW, this.examenCanonico.preguntas);
+        int i = 0;
         if(k <= this.cantEst){                                      // Si los que consultanDW son menos que la cant de est
             if(k <= cantEst - cantEntregados){                      // Si hay menos personas que cantidad de entregados
-                intercambiarExamen(k, notaNueva, examenDW);
+                while(i < k){                                        // O(K)
+                    int e = estEnAulaPorNotas.desencolar();                             // O(log E) como max
+                    if(estudiantes[e].entrego == false){
+                        estudiantes[e].examen.preguntas = examenDW;                         // O(1)
+                        estudiantes[e].nota = notaNueva;                                    // O(1)
+                        estEnAulaPorNotas.encolar(e);                                       // O(log E)
+                        idPorNotas.actualizarNotaDesdeHandle(e, estudiantes[e].nota);       // O(log E)
+                        i ++;
+                    }
+                    
+                }
             }
             else{                                                   // Si k es mayor a cantEst - cantEntregados
                 intercambiarExamen(cantEst - cantEntregados, notaNueva, examenDW);
@@ -132,7 +143,6 @@ public class Edr {
             estudiantes[e].nota = notaNueva;                                    // O(1)
             estEnAulaPorNotas.encolar(e);                                       // O(log E)
             idPorNotas.actualizarNotaDesdeHandle(e, estudiantes[e].nota);       // O(log E)
-
         }
     }
 
