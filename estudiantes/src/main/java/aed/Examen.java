@@ -27,9 +27,16 @@ public class Examen {
 
 //------------------------------------------------------------------------Copiar pregunta-------------------------------------------------------
 
-//Esta mal
-    public void copiarPrimeraPregunta(Examen vecino){
-        boolean encontre = false;                                                       // O(1)
+//Esta mal. chequear
+    public void copiarPrimeraPregunta(Examen vecino){    
+        for (int i = 0; i < this.preguntas.length; i++) {
+            if (this.preguntas[i] == -1 &&vecino.preguntas[i] != -1) {
+                this.preguntas[i] = vecino.preguntas[i]; 
+            }
+        }
+        
+        
+        /*  // O(1)
         while (encontre == false){                                                      // O(R)
             for (int i = 0; i < this.preguntas.length; i++){                            // O(R)
                 if (this.preguntas[i] == -1 && vecino.preguntas[i] != -1){              // O(1)
@@ -37,6 +44,8 @@ public class Examen {
                     encontre = true;                                                    // O(1)
                 }
             }
-        }
+        }*/
     }
+    
+
 }
