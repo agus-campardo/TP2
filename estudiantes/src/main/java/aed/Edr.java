@@ -85,12 +85,12 @@ public class Edr {
 
 // Falta actualizar el heap
     public void resolver(int estudiante, int NroEjercicio, int res) {
-        estudiantes[estudiante].examen.preguntas[NroEjercicio] = res;                   // O(1)
-        if (examenCanonico.preguntas[NroEjercicio] == res){                             // O(1)
-            estudiantes[estudiante].correctas += 1;                                     // O(1)
+        estudiantes[estudiante].examen.preguntas[NroEjercicio] = res;                               // O(1)
+        if (examenCanonico.preguntas[NroEjercicio] == res){                                         // O(1)
+            estudiantes[estudiante].correctas += 1;                                                 // O(1)
         }
-        estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;          // O(1)
-        this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);
+        estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;                      // O(1)
+        this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);        // O(log E)
     }
 
 
