@@ -40,13 +40,4 @@ public class Estudiante {
         }
         return nota;
     } // Complejidad: O(R)
-
-
-
-// entregar
-
-    public void entregar() {
-        this.entrego = true;
-    }
-    
 }
