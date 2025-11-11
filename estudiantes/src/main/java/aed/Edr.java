@@ -30,8 +30,8 @@ public class Edr {
 //------------------------------------------------------------------------NOTAS--------------------------------------------------------------------------
 
 
-    public int[] notas(){
-        int[] res = new int[estudiantes.length];                                  // O(E)
+    public double[] notas(){
+        double[] res = new double[estudiantes.length];                                  // O(E)
         for (int i = 0; i < estudiantes.length; i++){                                   // O(E)
             res[i] = estudiantes[i].nota;                                               // O(1)
         }
