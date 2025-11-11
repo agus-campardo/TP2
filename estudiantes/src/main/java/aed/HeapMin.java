@@ -134,33 +134,6 @@ public class HeapMin {
         }
     }// Complejidad = O(log E)
 
-//------------------------------------------------------------------------Heapify--------------------------------------------------------
-    
-    /*
-    ¿Heapify? - O(E)
-    Hacemos siftDown por cada uno de los niveles, "yendo hacia atrás", hasta la raíz. 
-    
-    1. Empezamos desde el último padre (el nodo más abajo que tiene dos hijos)
-    2. Hacemos siftDown a este padre y a todos los padres de arriba.
-    3. Subimos de nivel hasta llegar a la raiz.
-    */
-    // Complejidad = O(E)
-    private void Heapify() {
-        int ultimoPadre = encontrarUltimoPadre();                                           // O(1)
-        usarSiftDownDesde(ultimoPadre);                                                     // O(E)
-    }
-    private int encontrarUltimoPadre() {
-        int ultimoElemento = tamaño -1;                                                     // O(1)
-        int padreDelUltimo = (ultimoElemento - 1)/2;                                        // O(1)
-        return padreDelUltimo;                                                              // O(1)
-    }
-    private void usarSiftDownDesde(int empezarDesde) {
-        for (int posActual = empezarDesde; posActual >= 0; posActual--) {                   // O(E)           
-            siftDown(posActual);                                                            // O(1)
-        }
-    }
-
-
 //------------------------------------------------------------------------Extras--------------------------------------------------------
 
 
