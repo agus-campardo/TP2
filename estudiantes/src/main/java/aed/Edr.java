@@ -90,6 +90,7 @@ public class Edr {
             estudiantes[estudiante].correctas += 1;                                     // O(1)
         }
         estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;          // O(1)
+        this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);
     }
 
 

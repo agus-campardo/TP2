@@ -1,11 +1,11 @@
 package aed; 
 
 public class HeapMin {
-    private int[] heap;         // ids de estudiantes  
-    private int[] posiciones;   // posiciones[id] = índice en heap 
-    private int[] notas;        // notas[id] = nota actual 
-    private int tamaño;         // cuántos hay realmente (por si desencolamos gente)
-    private int capacidad;      // max. estudiantes que puede tener el heap (siempre = E)
+     int[] heap;         // ids de estudiantes  
+     int[] posiciones;   // posiciones[id] = índice en heap 
+     int[] notas;        // notas[id] = nota actual 
+     int tamaño;         // cuántos hay realmente (por si desencolamos gente)
+     int capacidad;      // max. estudiantes que puede tener el heap (siempre = E)
 
 
 //------------------------------------------------------------------------Handle--------------------------------------------------------
@@ -35,6 +35,8 @@ public class HeapMin {
 
 
 //------------------------------------------------------------------------Constructor--------------------------------------------------
+    
+
     public HeapMin(int cantEstudiantes) {
         this.capacidad = cantEstudiantes;                       // O(1)
         this.tamaño = cantEstudiantes;                          // O(1)
@@ -85,13 +87,13 @@ public class HeapMin {
 //------------------------------------------------------------------------Actualizar nota--------------------------------------------------
 
 
-    private void actualizarNotaDesdeHandle(int id, int nuevaNota) { 
+    public void actualizarNotaDesdeHandle(int id, int nuevaNota) { 
         int notaVieja = notas[id];          // Guarda la nota actual del estudiante antes de actualizarla           // O(1)
         notas[id] = nuevaNota;              // Asigna la nueva nota al estudiante en el arreglo de notas            // O(1)
         int pos = posiciones[id];           // Obtiene la posición actual del estudiante dentro del heap            // O(1)
-        if (nuevaNota < notaVieja)          // Si la nueva nota es menor que la anterior                            // O(1)
+        if (nuevaNota < notaVieja)                                                                                  // O(1)
             siftUp(pos);                    // Sube al estudiante en el heap hasta restaurar el orden               // O(log E)
-        else if (nuevaNota > notaVieja)     // Si la nueva nota es mayor que la anterior                            // O(1) 
+        else if (nuevaNota > notaVieja)                                                                             // O(1) 
             siftDown(pos);                  // Baja al estudiante en el heap hasta restaurar el orden               // O(log E)
     } // Complejidad: O(log E)
 
