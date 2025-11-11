@@ -187,8 +187,6 @@ class EdrTests {
 
         int[] copiones = edr.chequearCopias(); 
         int[] copiones_esperados = new int[]{0};
-        System.out.println("Copiones devueltos: " + Arrays.toString(copiones));
-        System.out.println("Copiones esperados: " + Arrays.toString(copiones_esperados));
         assertTrue(Arrays.equals(copiones_esperados, copiones));
         
     }
