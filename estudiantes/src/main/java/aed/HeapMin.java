@@ -1,6 +1,6 @@
 package aed; 
 
-public class HeapMin {
+public class heapMin {
     private int[] heap;         // ids de estudiantes  
     private int[] posiciones;   // posiciones[id] = índice en heap 
     private int[] notas;        // notas[id] = nota actual 
@@ -9,9 +9,9 @@ public class HeapMin {
 
     public class Handle {
         private int id; 
-        private HeapMin miHeap; 
+        private heapMin miHeap; 
 
-        private Handle(int id, HeapMin padre) { 
+        private Handle(int id, heapMin padre) { 
             this.id = id; 
             this.miHeap = padre; 
         }
