@@ -17,7 +17,7 @@ public class HeapMin {
 
         private Handle(int id, HeapMin heap) { 
             this.id = id;                                           // O(1)
-            this.miHeap = heap;                                    // O(1)
+            this.miHeap = heap;                                     // O(1)
         }
 
         public int id() {

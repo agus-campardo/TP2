@@ -114,7 +114,6 @@ public class Edr {
                         idPorNotas.actualizarNotaDesdeHandle(e, estudiantes[e].nota);       // O(log E)
                         i ++;
                     }
-                    
                 }
             }
             else{                                                   // Si k es mayor a cantEst - cantEntregados
