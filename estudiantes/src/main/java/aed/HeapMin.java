@@ -3,7 +3,7 @@ package aed;
 public class HeapMin {
      private int[] heap;         // ids de estudiantes  
      private int[] posiciones;   // posiciones[id] = índice en heap 
-     private int[] notas;        // notas[id] = nota actual 
+     private double[] notas;        // notas[id] = nota actual 
      private int tamaño;         // cuántos hay realmente (por si desencolamos gente)
      private int capacidad;      // max. estudiantes que puede tener el heap (siempre = E)
 
@@ -24,11 +24,11 @@ public class HeapMin {
             return id;                                              // O(1)
         }
 
-        public int nota() {
+        public double nota() {
             return miHeap.notas[id];                                // O(1)
         }
 
-        public void actualizarNota(int nuevaNota) {
+        public void actualizarNota(double nuevaNota) {
             miHeap.actualizarNotaDesdeHandle(id, nuevaNota);        // O(log E)
         }
     }
@@ -42,7 +42,7 @@ public class HeapMin {
         this.tamaño = cantEstudiantes;                          // O(1)
         this.heap = new int[cantEstudiantes];                   // O(E)
         this.posiciones = new int[cantEstudiantes];             // O(E)
-        this.notas = new int[cantEstudiantes];                  // O(E)
+        this.notas = new double[cantEstudiantes];                  // O(E)
         this.armarHeap();                                       // O(E)
     } // Complejidad: O(E)
 
@@ -87,8 +87,8 @@ public class HeapMin {
 //------------------------------------------------------------------------Actualizar nota--------------------------------------------------
 
 
-    public void actualizarNotaDesdeHandle(int id, int nuevaNota) { 
-        int notaVieja = notas[id];          // Guarda la nota actual del estudiante antes de actualizarla           // O(1)
+    public void actualizarNotaDesdeHandle(int id, double nuevaNota) { 
+        double notaVieja = notas[id];          // Guarda la nota actual del estudiante antes de actualizarla           // O(1)
         notas[id] = nuevaNota;              // Asigna la nueva nota al estudiante en el arreglo de notas            // O(1)
         int pos = posiciones[id];           // Obtiene la posición actual del estudiante dentro del heap            // O(1)
         if (nuevaNota < notaVieja)                                                                                  // O(1)
