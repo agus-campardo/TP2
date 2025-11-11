@@ -19,17 +19,9 @@ public class Edr {
         this.cantEntregados = 0;
         this.idPorNotas = new HeapMin(Cant_estudiantes);                                // O(E)
         for (int i = 0; i < Cant_estudiantes; i++){                                     // O(E)
-            this.estudiantes[i] = crearEstudiante(i, ExamenCanonico.length);            // O(R)
+            this.estudiantes[i] = new Estudiante(i, ExamenCanonico.length, ladoAula);            // O(R)
         }
     } // O(R) + O(1) + O(E) + O(1) + O(E) * O(R) = O(E*R)
-    
-    public Estudiante crearEstudiante(int id, int preguntas){
-        Estudiante res = new Estudiante(id, preguntas);                                 // O(R)
-        int estPorFila = (ladoAula + 1) / 2;                                            // O(1)
-        res.fila = id / estPorFila;                                                     // O(1)
-        res.columna = (id % estPorFila)*2;                                              // O(1)
-        return res;                                                                     // O(1)
-    } // O(R) + O(1) + O(1) + O(1) = O(R)
     
 
 //------------------------------------------------------------------------NOTAS--------------------------------------------------------------------------
@@ -106,7 +98,7 @@ public class Edr {
         int notaNueva = calcularNota(examenDW, this.examenCanonico.preguntas);
         if(k <= this.cantEst){
             if(k <= cantEst - cantEntregados){
-                for (int i = 0; i < k; i++){                        // O(K)
+                for (int i = 0; i < k; i++){                            // O(K)
                     int e = idPorNotas.desencolar();
                     estudiantes[e].examen.preguntas = examenDW;
                     estudiantes[e].nota = notaNueva;
