@@ -271,31 +271,31 @@ public class Edr {
 
 
     public int[] chequearCopias() {
-        int[][] grilla = new int[this.cantPreguntas][10];               // Creo la grilla de calificaciones
-        int tramposos = 0;                                              
-        for (int i = 0; i < cantEst; i++){
-            for (int j = 0; j < this.cantPreguntas; j++){
-                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta
-                grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta
+        int[][] grilla = new int[this.cantPreguntas][10];               // Creo la grilla de calificaciones                     //O()
+        int tramposos = 0;                                                                                                      //O()
+        for (int i = 0; i < cantEst; i++){                                                                                      //O()
+            for (int j = 0; j < this.cantPreguntas; j++){                                                                       //O()
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  //O()
+                grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta                 //O()
             }
         }
-        int umbral = cantEst / 4;                                       // Guardo el 25% de los alumnos
-        for (int i = 0; i < cantEst; i++){
-            for (int j = 0; j < cantPreguntas; j++){
-                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta
-                if (grilla[j][respuesta] < umbral) {                    // Me fijo si respondio por debajo del 25%
-                    estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio
-                    break;
+        int umbral = cantEst / 4;                                       // Guardo el 25% de los alumnos                         //O()
+        for (int i = 0; i < cantEst; i++){                                                                                      //O()
+            for (int j = 0; j < cantPreguntas; j++){                                                                            //O()
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  //O()
+                if (grilla[j][respuesta] < umbral) {                    // Me fijo si respondio por debajo del 25%              //O()
+                    estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio             //O()
+                    break;                                                                                                      //O()
                 }
             }
-            if (estudiantes[i].sospechoso){
-                tramposos += 1;
+            if (estudiantes[i].sospechoso){                                                                                     //O()
+                tramposos += 1;                                                                                                 //O()
             }
         }
-        int[] res = new int[tramposos];
-        int k = 0;
-        for (int i = 0; i < cantEst; i++){
-            if (estudiantes[i].sospechoso){                             // Si es tramposo lo meto a la lista de tramposos
+        int[] res = new int[tramposos];                                                                                         //O()
+        int k = 0;                                                                                                              //O()
+        for (int i = 0; i < cantEst; i++){                                                                                      //O()
+            if (estudiantes[i].sospechoso){                             // Si es tramposo lo meto a la lista de tramposos       //O()
                 res[k] = i;
                 k++;
             }
