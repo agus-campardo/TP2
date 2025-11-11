@@ -13,6 +13,7 @@ public class Edr {
         this.examenCanonico.preguntas = ExamenCanonico;                                 // O(1)
         this.estudiantes = new Estudiante[Cant_estudiantes];                            // O(E)
         this.ladoAula = LadoAula;                                                       // O(1)
+        this.idPorNotas = new HeapMin(Cant_estudiantes);                                // O(E)
         for (int i = 0; i < Cant_estudiantes; i++){                                     // O(E)
             this.estudiantes[i] = crearEstudiante(i, ExamenCanonico.length);            // O(R)
         }
