@@ -77,8 +77,10 @@ public class Edr {
             if(estaEnRango(estudiantes[est], estudiantes[est - 1])){                // Izquierda
                 vecinos.add(estudiantes[est - 1]);
             }
-            if(estaEnRango(estudiantes[est], estudiantes[est - estPorFila])){       // Adelante
-                vecinos.add(estudiantes[est - estPorFila]);
+            if (est - estPorFila >= 0){
+                if(estaEnRango(estudiantes[est], estudiantes[est - estPorFila])){   // Adelante
+                    vecinos.add(estudiantes[est - estPorFila]);
+            }
             }
         }
         Estudiante[] res = vecinos.toArray(new Estudiante[0]);                      // Paso a un array para mas comodidad
