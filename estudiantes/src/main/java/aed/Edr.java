@@ -50,6 +50,13 @@ public class Edr {
     public void copiarse(int est){
         Estudiante[] vecinos = consguirVecinos(est);                                                    // O(1)
         Estudiante mejorVecino = mejorVecinoParaCopiarse(estudiantes[est], vecinos);                    // O(R)
+        System.out.println(java.util.Arrays.toString(vecinos));
+        System.out.println("Estudiante que se copia -> id=" + est + 
+            ", fila=" + estudiantes[est].fila + ", col=" + estudiantes[est].columna);
+        System.out.print("Vecinos de " + est + ": ");
+        for (Estudiante v : vecinos) {
+            System.out.print("id=" + v.id + " ");
+        }
         for (int i = 0; i < cantPreguntas; i++){                                                        // O(R)
             if (estudiantes[est].examen.preguntas[i] == -1 && mejorVecino.examen.preguntas[i] != -1){   // O(1)
                 resolver(est, i, mejorVecino.examen.preguntas[i]);                                      // O(log E)
@@ -72,7 +79,7 @@ public class Edr {
         vecinos.add(estudiantes[est - estPorFila]);
     }
     return vecinos.toArray(new Estudiante[0]);
-}
+    }
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
         if (vecinos.length == 0) {
@@ -96,13 +103,13 @@ public class Edr {
     } // O(R)
 
     public boolean estaEnRango(Estudiante est, Estudiante vecino){
-        if (est.fila == vecino.fila + 2 && est.columna == vecino.columna){              // O(1)
+        if (est.fila == vecino.fila - 1 && est.columna == vecino.columna){              // O(1)
             return true;
         }
-        else if (est.fila == vecino.fila - 2 && est.columna == vecino.columna){         // O(1)
+        else if (est.fila == vecino.fila && est.columna == vecino.columna + 2){         // O(1)
             return true;
         }
-        else if (est.fila == vecino.fila && est.columna == vecino.columna - 1){         // O(1)
+        else if (est.fila == vecino.fila && est.columna == vecino.columna - 2){         // O(1)
             return true;
         }
         return false;
@@ -184,7 +191,7 @@ public class Edr {
 
 //------------------------------------------------------------------------CORREGIR------------------------------------------------------------------------
 
-    // No se
+    // Terminado
     public NotaFinal[] corregir() {
         
         // lleno el array de res con notasfinal de estudiantes, 
@@ -344,5 +351,6 @@ public class Edr {
 
 /* 
 Preguntas para el viernes:
-    - Se puede modificar el archivo NotaFinal? (Agregar un equals)
+    - Se puede modificar el archivo NotaFinal? (Agregar un equals) (test "copias_de_exacto_25_porciento")
+    - No pasa el test "alumnos_se_copian_una_vez" pero es porque el lado del aula es 5 y hay 4 alumnos, los ordena de izq a der y dsp pasa a la sig fila, esta mal el test?
 */

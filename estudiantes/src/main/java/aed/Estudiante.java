@@ -25,9 +25,7 @@ public class Estudiante {
         this.entrego = false;                                                   // O(1)
         this.sospechoso = true;                                                 // O(1)
         this.examen = new Examen(cantPreguntas);                                // O(R)
-        
         calcularPosicion(ladoAula);                                             // O(1)
-    
     } // Complejidad: O(R)
 
     private void calcularPosicion(int ladoAula) {
