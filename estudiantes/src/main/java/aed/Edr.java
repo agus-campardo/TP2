@@ -59,35 +59,27 @@ public class Edr {
     
 
     public Estudiante[] consguirVecinos(int est) {
-        int estPorFila = (ladoAula + 1) / 2;                    
-        ArrayList<Estudiante> vecinos = new ArrayList<>();                          // Creo ArrayList de los estudiantes
-        if (est == 0){                                                              // Separo el estudiante en la posicion 0 ya que si se fija en el de su izquierda se va de rango
-            if (ladoAula > 2){                                                      // Si hay mas de un estudiante 
-                vecinos.add(estudiantes[est + 1]);                                  
-            }
-        }
-        else if(est == estudiantes.length - 1 || est == estudiantes.length - 2){    // Separo al ultimo estudiante
-            vecinos.add(estudiantes[est - 1]);
-            vecinos.add(estudiantes[est - estPorFila]);
-        }
-        else{
-            if(estaEnRango(estudiantes[est], estudiantes[est + 1])){                // Derecha
-                vecinos.add(estudiantes[est + 1]);
-            }
-            if(estaEnRango(estudiantes[est], estudiantes[est - 1])){                // Izquierda
-                vecinos.add(estudiantes[est - 1]);
-            }
-            if (est - estPorFila >= 0){
-                if(estaEnRango(estudiantes[est], estudiantes[est - estPorFila])){   // Adelante
-                    vecinos.add(estudiantes[est - estPorFila]);
-            }
-            }
-        }
-        Estudiante[] res = vecinos.toArray(new Estudiante[0]);                      // Paso a un array para mas comodidad
-        return res;
-    } // Como maximo puede tener 3 vecinos asi que es todo 0(1)
+    int estPorFila = (ladoAula + 1) / 2;                    
+    ArrayList<Estudiante> vecinos = new ArrayList<>();
+    if (est + 1 < estudiantes.length &&
+        estaEnRango(estudiantes[est], estudiantes[est + 1])) {
+        vecinos.add(estudiantes[est + 1]);
+    }
+    if (est - 1 >= 0 &&
+        estaEnRango(estudiantes[est], estudiantes[est - 1])) {
+        vecinos.add(estudiantes[est - 1]);
+    }
+    if (est - estPorFila >= 0 &&
+        estaEnRango(estudiantes[est], estudiantes[est - estPorFila])) {
+        vecinos.add(estudiantes[est - estPorFila]);
+    }
+    return vecinos.toArray(new Estudiante[0]);
+}
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
+        if (vecinos.length == 0) {
+            return est;
+        }
         Estudiante res = vecinos[0];                                                            // O(1)
         int mayor = 0;                                                                          // O(1)
         for (int i = 1; i < vecinos.length; i++){                                               // O(1) (Como maximo tiene 3 vecinos)
