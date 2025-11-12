@@ -67,13 +67,13 @@ public class Edr {
             vecinos.add(estudiantes[est - estPorFila]);
         }
         else{
-            if(estaEnRango(estudiantes[est], estudiantes[est + 1])){
+            if(estaEnRango(estudiantes[est], estudiantes[est + 1])){                // Derecha
                 vecinos.add(estudiantes[est + 1]);
             }
-            if(estaEnRango(estudiantes[est], estudiantes[est - 1])){
+            if(estaEnRango(estudiantes[est], estudiantes[est - 1])){                // Izquierda
                 vecinos.add(estudiantes[est - 1]);
             }
-            if(estaEnRango(estudiantes[est], estudiantes[est - estPorFila])){
+            if(estaEnRango(estudiantes[est], estudiantes[est - estPorFila])){       // Adelante
                 vecinos.add(estudiantes[est - estPorFila]);
             }
         }
@@ -84,8 +84,15 @@ public class Edr {
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
         Estudiante res = vecinos[0];
+        int mayor = 0;
+        int contador = 0;
         for (int i = 1; i < vecinos.length; i++){
             for (int j = 0; j < cantPreguntas; j++){
+                if (est.examen.preguntas[j] == -1 && vecinos[i].examen.preguntas[j] != -1){
+                    contador += 1;
+                }
+            }
+            if (contador >= mayor){
                 
             }
         }
