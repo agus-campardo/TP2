@@ -1,5 +1,6 @@
 package aed;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Edr {
     private Estudiante[] estudiantes;
@@ -61,16 +62,13 @@ public class Edr {
     public Estudiante[] consguirVecinos(int est) {
     int estPorFila = (ladoAula + 1) / 2;                    
     ArrayList<Estudiante> vecinos = new ArrayList<>();
-    if (est + 1 < estudiantes.length &&
-        estaEnRango(estudiantes[est], estudiantes[est + 1])) {
+    if (est + 1 < estudiantes.length && estaEnRango(estudiantes[est], estudiantes[est + 1])) {
         vecinos.add(estudiantes[est + 1]);
     }
-    if (est - 1 >= 0 &&
-        estaEnRango(estudiantes[est], estudiantes[est - 1])) {
+    if (est - 1 >= 0 && estaEnRango(estudiantes[est], estudiantes[est - 1])) {
         vecinos.add(estudiantes[est - 1]);
     }
-    if (est - estPorFila >= 0 &&
-        estaEnRango(estudiantes[est], estudiantes[est - estPorFila])) {
+    if (est - estPorFila >= 0 && estaEnRango(estudiantes[est], estudiantes[est - estPorFila])) {
         vecinos.add(estudiantes[est - estPorFila]);
     }
     return vecinos.toArray(new Estudiante[0]);
