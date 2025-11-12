@@ -1,6 +1,5 @@
 package aed;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Edr {
     private Estudiante[] estudiantes;
