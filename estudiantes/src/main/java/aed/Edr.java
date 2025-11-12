@@ -47,9 +47,13 @@ public class Edr {
 //------------------------------------------------------------------------COPIARSE------------------------------------------------------------------------
 
     public void copiarse(int est){
-        Estudiante[] vecinos = consguirVecinos(est);
-        if (vecinos.length != 0){
-            int contador = 0;
+        Estudiante[] vecinos = consguirVecinos(est);                                                    // O(1)
+        Estudiante mejorVecino = mejorVecinoParaCopiarse(estudiantes[est], vecinos);                    // O(R)
+        for (int i = 0; i < cantPreguntas; i++){                                                        // O(R)
+            if (estudiantes[est].examen.preguntas[i] == -1 && mejorVecino.examen.preguntas[i] != -1){   // O(1)
+                resolver(est, i, mejorVecino.examen.preguntas[i]);                                      // O(log E)
+                break;
+            }
         }
     }
     
@@ -83,21 +87,22 @@ public class Edr {
 
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
-        Estudiante res = vecinos[0];
-        int mayor = 0;
-        int contador = 0;
-        for (int i = 1; i < vecinos.length; i++){
-            for (int j = 0; j < cantPreguntas; j++){
-                if (est.examen.preguntas[j] == -1 && vecinos[i].examen.preguntas[j] != -1){
-                    contador += 1;
+        Estudiante res = vecinos[0];                                                            // O(1)
+        int mayor = 0;                                                                          // O(1)
+        for (int i = 1; i < vecinos.length; i++){                                               // O(1) (Como maximo tiene 3 vecinos)
+            int contador = 0;                                                                   // O(1)
+            for (int j = 0; j < cantPreguntas; j++){                                            // O(R)
+                if (est.examen.preguntas[j] == -1 && vecinos[i].examen.preguntas[j] != -1){     // O(1)
+                    contador += 1;                                                              // O(1)
                 }
             }
-            if (contador >= mayor){
-                
+            if (contador > mayor || (contador == mayor && vecinos[i].id < res.id)) {            // O(1)
+            mayor = contador;                                                                   // O(1)
+            res = vecinos[i];                                                                   // O(1)
             }
         }
-        return res;
-    }
+        return res;                                                                             // O(1)
+    } // O(R)
 
     public boolean estaEnRango(Estudiante est, Estudiante vecino){
         if (est.fila == vecino.fila + 2 && est.columna == vecino.columna){              // O(1)
@@ -110,7 +115,7 @@ public class Edr {
             return true;
         }
         return false;
-    }
+    } // O(1)
 
 
 //------------------------------------------------------------------------RESOLVER------------------------------------------------------------------------
@@ -124,7 +129,7 @@ public class Edr {
         estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;                        // Actualizo la nota                                      // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);          // Actualizo el heap                                      // O(log E)
         this.estEnAulaPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);                                                             // O(log(E))
-    }
+    } // O(log E)
 
 
 //------------------------------------------------------------------------CONSULTAR DARK WEB--------------------------------------------------------------
