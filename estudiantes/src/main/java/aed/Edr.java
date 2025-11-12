@@ -276,8 +276,8 @@ public class Edr {
         for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
             for (int j = 0; j < this.cantPreguntas; j++){                                                                       // O(R)
                 int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
-                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea
-                    continue;
+                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea               // O(1)
+                    continue;                                                                                                   // O(1)
                 }
                 grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta                 // O(1)
             } 
@@ -286,8 +286,8 @@ public class Edr {
         for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
             for (int j = 0; j < cantPreguntas; j++){                                                                            // O(R)
                 int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
-                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea
-                    continue;
+                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea               // O(1)
+                    continue;                                                                                                   // O(1)
                 }
                 if (grilla[j][respuesta] - 1 < umbral) {                // Me fijo si respondio por debajo del 25%              // O(1)
                     estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio             // O(1)
