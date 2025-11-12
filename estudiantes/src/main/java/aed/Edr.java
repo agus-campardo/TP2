@@ -339,3 +339,10 @@ public class Edr {
         return res;                                                                                                             // O(1)
     }// O(E*R) + O(E*R) + O(E) = O(E*R)
 }
+
+
+
+/* 
+Preguntas para el viernes:
+    - Se puede modificar el archivo NotaFinal? (Agregar un equals)
+*/
