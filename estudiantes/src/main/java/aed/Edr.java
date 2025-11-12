@@ -50,13 +50,13 @@ public class Edr {
 
     }
     
-    
+
     public Estudiante[] consguirVecinos(int est) {
-        int estPorFila = (ladoAula + 1) / 2;                                            // O(1)
-        ArrayList<Estudiante> vecinos = new ArrayList<>();                              // O(1)
-        if (est == 0){
-            if (ladoAula > 2){
-                vecinos.add(estudiantes[est + 1]);
+        int estPorFila = (ladoAula + 1) / 2;                    
+        ArrayList<Estudiante> vecinos = new ArrayList<>();                          // Creo ArrayList de los estudiantes
+        if (est == 0){                                                              // Separo el estudiante en la posicion 0 ya que si se fija en el de su izquierda se va de rango
+            if (ladoAula > 2){                                                      // Si hay mas de un estudiante 
+                vecinos.add(estudiantes[est + 1]);                                  
             }
         }
         else if(est == estudiantes.length - 1){
