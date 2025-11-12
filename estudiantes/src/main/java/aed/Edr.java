@@ -47,7 +47,10 @@ public class Edr {
 //------------------------------------------------------------------------COPIARSE------------------------------------------------------------------------
 
     public void copiarse(int est){
-
+        Estudiante[] vecinos = consguirVecinos(est);
+        if (vecinos.length != 0){
+            int contador = 0;
+        }
     }
     
 
@@ -59,7 +62,7 @@ public class Edr {
                 vecinos.add(estudiantes[est + 1]);                                  
             }
         }
-        else if(est == estudiantes.length - 1){
+        else if(est == estudiantes.length - 1 || est == estudiantes.length - 2){    // Separo al ultimo estudiante
             vecinos.add(estudiantes[est - 1]);
             vecinos.add(estudiantes[est - estPorFila]);
         }
@@ -74,7 +77,18 @@ public class Edr {
                 vecinos.add(estudiantes[est - estPorFila]);
             }
         }
-        Estudiante[] res = vecinos.toArray(new Estudiante[0]);
+        Estudiante[] res = vecinos.toArray(new Estudiante[0]);                      // Paso a un array para mas comodidad
+        return res;
+    } // Como maximo puede tener 3 vecinos asi que es todo 0(1)
+
+
+    public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
+        Estudiante res = vecinos[0];
+        for (int i = 1; i < vecinos.length; i++){
+            for (int j = 0; j < cantPreguntas; j++){
+                
+            }
+        }
         return res;
     }
 
