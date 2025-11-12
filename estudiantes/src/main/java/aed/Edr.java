@@ -46,8 +46,12 @@ public class Edr {
 
 //------------------------------------------------------------------------COPIARSE------------------------------------------------------------------------
 
-    // Falta terminar
-    public void copiarse(int est) {
+    public void copiarse(int est){
+
+    }
+    
+    
+    public Estudiante[] consguirVecinos(int est) {
         int estPorFila = (ladoAula + 1) / 2;                                            // O(1)
         ArrayList<Estudiante> vecinos = new ArrayList<>();                              // O(1)
         if (est == 0){
@@ -70,6 +74,8 @@ public class Edr {
                 vecinos.add(estudiantes[est - estPorFila]);
             }
         }
+        Estudiante[] res = vecinos.toArray(new Estudiante[0]);
+        return res;
     }
 
     public boolean estaEnRango(Estudiante est, Estudiante vecino){
