@@ -122,6 +122,7 @@ public class Edr {
     // Terminado
     public void resolver(int estudiante, int NroEjercicio, int res) {
         estudiantes[estudiante].examen.preguntas[NroEjercicio] = res;                                 // Cambia la respuesta del estudiante en la pregunta      // O(1)
+        estudiantes[estudiante].respondidas += 1;
         if (examenCanonico.preguntas[NroEjercicio] == res){                                           // Se fija si le respuesta esta bien                      // O(1)
             estudiantes[estudiante].correctas += 1;                                                   // Si esta bien actualizo las respuestas correctas        // O(1)
         }
@@ -325,6 +326,9 @@ public class Edr {
                     break;                                                                                                      // O(1)
                 } 
             } 
+            if (estudiantes[i].respondidas == 0){
+                estudiantes[i].sospechoso = false;
+            }
             if (estudiantes[i].sospechoso){                                                                                     // O(1)
                 tramposos += 1;                                                                                                 // O(1)
             } 

@@ -7,6 +7,7 @@ public class Estudiante {
     int fila;
     int columna;
     int correctas;
+    int respondidas;
     double nota;
     boolean entrego;
     boolean sospechoso;
@@ -19,6 +20,7 @@ public class Estudiante {
     public Estudiante(int id, int cantPreguntas, int ladoAula){
         this.id = id;                                                           // O(1)                        // O(1)
         this.correctas = 0;                                                     // O(1)
+        this.respondidas = 0;
         this.nota = 0.0;                                                          // O(1)
         this.entrego = false;                                                   // O(1)
         this.sospechoso = true;                                                 // O(1)
