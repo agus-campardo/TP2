@@ -52,10 +52,10 @@ public class Edr {
         for (int i = 0; i < cantPreguntas; i++){                                                        // O(R)
             if (estudiantes[est].examen.preguntas[i] == -1 && mejorVecino.examen.preguntas[i] != -1){   // O(1)
                 resolver(est, i, mejorVecino.examen.preguntas[i]);                                      // O(log E)
-                break;
+                break;                                                                                  // O(1)
             }
         }
-    }
+    } // O(R + log E)
     
 
     public Estudiante[] consguirVecinos(int est) {
@@ -84,7 +84,6 @@ public class Edr {
         Estudiante[] res = vecinos.toArray(new Estudiante[0]);                      // Paso a un array para mas comodidad
         return res;
     } // Como maximo puede tener 3 vecinos asi que es todo 0(1)
-
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
         Estudiante res = vecinos[0];                                                            // O(1)
