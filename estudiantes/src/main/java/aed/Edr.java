@@ -206,6 +206,7 @@ public class Edr {
         //decreciente. En caso de empate, se desempata por mayor 
         //NotaFinal.id de estudiante
         return resOrdenCorectoSinCopiones;                             // - o(1)
+ 
 
     }
 
@@ -266,6 +267,7 @@ public class Edr {
             int id = conSospechosos[i]._id;                         
             if(this.estudiantes[id].sospechoso==false){                   // si el estudiante no es sospechoso de copiarse,
                 sinSospechosos[j]=conSospechosos[i];                      // lo agrego al array de notaFinal de estudiantes que no se copiaron - O(1)                j=j+1;
+                j = j + 1;
             }
 
             i=i+1;
@@ -285,7 +287,7 @@ public class Edr {
         while (k<this.cantEst){                                         // repito el cuerpo E-veces - O(E*(cuerpo))
 
             this.idPorNotas.encolar(k);                                 // encolo uno a uno cada estudiante con su id -O(log(E)) como maximo
-
+            k = k + 1;
         }
     }
 
@@ -333,6 +335,7 @@ public class Edr {
                 k++;                                                                                                            // O(1)
             } 
         } // O(E)
+        this.cantSospechosos=res.length;
         return res;                                                                                                             // O(1)
     }// O(E*R) + O(E*R) + O(E) = O(E*R)
 }
