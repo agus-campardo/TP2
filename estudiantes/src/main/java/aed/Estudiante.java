@@ -36,8 +36,20 @@ public class Estudiante {
 
     //----Gets----
 
+    public int obtenerId() {
+        return id; 
+    } // O(1)
+
     public int obtenerRespuestasCorrectas() {
         return correctas; 
+    } // O(1)
+
+    public int obtenerFila() {
+        return fila; 
+    } // O(1)
+
+    public int obtenerColumna() {
+        return columna; 
     } // O(1)
 
     public int obtenerPreguntasRespondidas() {
@@ -79,6 +91,8 @@ public class Estudiante {
         this.nota = nota; 
     } // O(1)
 
-    
+    public void resolverPregunta(int preg, int res){
+        this.examen.preguntas[preg] = res;
+    }
 
 }
