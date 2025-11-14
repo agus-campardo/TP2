@@ -49,10 +49,6 @@ public class Edr {
     public void copiarse(int est){
         Estudiante[] vecinos = consguirVecinos(est);                                                    // O(1)
         Estudiante mejorVecino = mejorVecinoParaCopiarse(estudiantes[est], vecinos);                    // O(R)
-        System.out.println(java.util.Arrays.toString(vecinos));
-        System.out.println("Estudiante que se copia -> id=" + est + 
-            ", fila=" + estudiantes[est].fila + ", col=" + estudiantes[est].columna);
-        System.out.print("Vecinos de " + est + ": ");
         for (Estudiante v : vecinos) {
             System.out.print("id=" + v.id + " ");
         }
