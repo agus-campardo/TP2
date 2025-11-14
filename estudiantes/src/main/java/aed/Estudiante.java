@@ -35,8 +35,12 @@ public class Estudiante {
     } // O(1)
 
 
-    public void esSospechoso () {
-        this.sospechoso = true;
+    public void entregar() {
+        this.entrego = true; 
+    }
+
+    public void marcarSospechoso(boolean esSospechoso) {
+        this.sospechoso = esSospechoso; 
     }
 
 }

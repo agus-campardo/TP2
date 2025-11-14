@@ -1,0 +1,106 @@
+// CHEQUEAR COPIAS 
+public int[] chequearCopias() {
+    int[][] grilla = armarGrillaDeRespuestas(); 
+    clasificarSospechososSegunCriterio(grilla); 
+    int[] res = obtenerIdsSospechosos();
+    
+    this.cantSospechosos = res.length; 
+    return res;
+}
+
+private int[][] armarGrillaDeRespuestas() {
+    // Creo un array de R elementos, donde cada elemento es un array de 10 ints
+    int[][] grilla = new int[this.cantPreguntas][10];  // O(R)
+    
+    // Lleno grilla con la cantidad de estudiantes que pusieron cada respuesta
+    for (int i = 0; i < cantEst; i++) {                    // O(E)
+        Estudiante estudiante = obtenerEstudiante(i);      // O(1)
+        Examen examen = estudiante.obtenerExamen();        // O(1)
+        
+        for (int p = 0; p < this.cantPreguntas; p++) {    // O(R)
+            int respuesta = examen.obtenerRespuesta(p);    // O(1)
+            if (respuesta != -1) {                         // Solo contar respondidas
+                grilla[p][respuesta] += 1;                 // O(1)
+            }
+        }
+    }
+    return grilla;
+}
+
+private void clasificarSospechososSegunCriterio(int[][] grilla) {
+    int umbral = cantEst/4; 
+
+    for (int i =0; i < cantEst; i++) {
+        Estudiante estudiante = obtenerEstudiante(i); 
+        Examen examen = estudiante.obtenerExamen();
+
+        // asumimos que todos son sospechoos
+        boolean esSospechoso = true; 
+        boolean tieneRespuestas = false; 
+
+        for (int p = 0; p < this.cantPreguntas && esSospechoso; p++) {  // O(R)
+            int respuesta = examen.obtenerRespuesta(p);   // O(1)
+            
+            if (respuesta != -1) {
+                tieneRespuestas = true;
+                // Si alguna respuesta tiene menos del 25%, sin conatr a ese estudiante, no es sospechoso
+                if (grilla[p][respuesta] - 1 < umbral) {  // O(1)
+                    esSospechoso = false;                 // O(1)
+                }
+            }
+        }
+
+        // si no tiene respuestas, no es sospecjosos
+        if (!tieneRespuestas) {
+            esSospechoso = false;
+        }
+
+        estudiante.marcarSospechoso(esSospechoso);
+    }
+}
+
+private int[] obtenerIdsSospechosos() {
+    int cantidadSospechosos = 0; 
+
+    for (int i=0; i< cantEst; i++) {
+        if (obtenerEstudiante(i).esSospechoso()) {
+            cantidadSospechosos++;
+        }
+    }
+
+    int[] res = new int[cantidadSospechosos]; 
+    int k=0; 
+    for (int i = 0; i < cantEst; i++) {                  // O(E)
+        if (obtenerEstudiante(i).esSospechoso()) {       // O(1)
+            res[k] = i;                                  // O(1)
+            k++;
+        }
+    }
+    return res; 
+}
+
+// ENTREGAR CON LAS COSAS ENCAPSULADAS
+public void entregar(int estudiante) {
+    estudiantes[estudiante].marcarEntregado();    // O(1)
+    this.cantEntregados += 1;                     // O(1)
+} // O(1)
+
+// RESOLVER CON LAS COSAS ENCAPSULADAS
+public void resolver(int estudiante, int NroEjercicio, int res) {
+    int respuestaCorrecta = this.examenCanonico.obtenerRespuesta(NroEjercicio); 
+
+    estudiantes[estudiante].resolverPregunta(NroEjercicio, res, respuestaCorrecta); 
+
+    // actualizar heap 
+    double nuevaNota = estudiantes[estudiante].obtenerNota(); 
+    this.idPorNotas.actualizarNotaDesdeHandle(estudiante, nuevaNota); // O(log E)
+    this.estEnAulaPorNotas.actualizarNotaDesdeHandle(estudiante, nuevaNota); // O(log E)
+} // O(log E)
+
+
+// copairse
+public void copiarse(int est) {
+    Estudiante[] vecinos = conseguirVecinos(est); 
+    Estudiante copion = estudiantes[est]; 
+    Estudiante mejorVecino = mejorVecinoParaCopiarse(copion, vecinos); 
+}
