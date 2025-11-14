@@ -34,6 +34,38 @@ public class Estudiante {
         this.columna = (id % estudiantesPorFila) * 2;
     } // O(1)
 
+    //----Gets----
+
+    public int obtenerRespuestasCorrectas() {
+        return correctas; 
+    } // O(1)
+
+    public int obtenerPreguntasRespondidas() {
+        return respondidas; 
+    } // O(1)
+
+    public double obtenerNota() {
+        return nota; 
+    } // O(1)
+
+    public boolean obtenerEstadoEntrega() {
+        return entrego; 
+    } // O(1)
+
+    public boolean obtenerEstadoSospechoso() {
+        return sospechoso; 
+    } // O(1)
+
+    public Examen obtenerExamen() {
+        return examen; 
+    } // O(1)
+
+    public int obtenerRespuesta(int nroPregunta) {
+        return this.examen.preguntas[nroPregunta];       
+    } // O(1)
+
+
+    //----Sets----
 
     public void entregar() {
         this.entrego = true; 
@@ -42,5 +74,11 @@ public class Estudiante {
     public void marcarSospechoso(boolean esSospechoso) {
         this.sospechoso = esSospechoso; 
     }
+
+    public void cambiarNota(double nota) {
+        this.nota = nota; 
+    } // O(1)
+
+    
 
 }

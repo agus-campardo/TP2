@@ -15,7 +15,7 @@ public class Estudiante {
 
 
     /*/
-    ¿WUE HAY ACA?
+    ¿QUE HAY ACA?
         PONER COSAS DE LOS VECINOS EN ESTA PARTE 
         - obtenerRespuestasCorrectas() O(1)
         - obtenerPreguntasRespondidas() O(1)
