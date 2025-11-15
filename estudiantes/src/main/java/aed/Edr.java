@@ -120,7 +120,7 @@ public class Edr {
         if (examenCanonico.preguntas[NroEjercicio] == res){                                           // Se fija si le respuesta esta bien                      // O(1)
             estudiantes[estudiante].correctas += 1;                                                   // Si esta bien actualizo las respuestas correctas        // O(1)
         }
-        estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;                        // Actualizo la nota                                      // O(1)
+        estudiantes[estudiante].nota = (estudiantes[estudiante].correctas/this.cantPreguntas) * 100;  // Actualizo la nota                                      // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);          // Actualizo el heap                                      // O(log E)
         this.estEnAulaPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);                                                             // O(log(E))
     } // O(log E)
