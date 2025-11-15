@@ -120,7 +120,7 @@ public class Edr {
         if (examenCanonico.preguntas[NroEjercicio] == res){                                           // Se fija si le respuesta esta bien                      // O(1)
             estudiantes[estudiante].correctas += 1;                                                   // Si esta bien actualizo las respuestas correctas        // O(1)
         }
-        estudiantes[estudiante].nota = (estudiantes[estudiante].correctas/this.cantPreguntas) * 100;  // Actualizo la nota                                      // O(1)
+        estudiantes[estudiante].nota = estudiantes[estudiante].correctas * 10;                        // Actualizo la nota                                      // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);          // Actualizo el heap                                      // O(log E)
         this.estEnAulaPorNotas.actualizarNotaDesdeHandle(estudiante, estudiantes[estudiante].nota);                                                             // O(log(E))
     } // O(log E)
@@ -310,7 +310,7 @@ public class Edr {
                 grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta                 // O(1)
             } 
         } // O(E) * O(R) = O(E*R)
-        int umbral = cantEst / 4;                                       // Guardo el 25% de los alumnos                         // O(1)
+        double umbral = (cantEst - 1) * 0.25;                                       // Guardo el 25% de los alumnos                         // O(1)
         for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
             for (int j = 0; j < cantPreguntas; j++){                                                                            // O(R)
                 int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
