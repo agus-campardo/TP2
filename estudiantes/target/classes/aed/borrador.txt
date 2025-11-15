@@ -28,7 +28,7 @@ private int[][] armarGrillaDeRespuestas() {
 }
 
 private void clasificarSospechososSegunCriterio(int[][] grilla) {
-    int umbral = cantEst/4; 
+    double umbral = (cantEst - 1) / 4.0; 
 
     for (int i =0; i < cantEst; i++) {
         Estudiante estudiante = obtenerEstudiante(i); 

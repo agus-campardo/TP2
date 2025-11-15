@@ -310,7 +310,7 @@ public class Edr {
                 grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta                 // O(1)
             } 
         } // O(E) * O(R) = O(E*R)
-        double umbral = (cantEst - 1) * 0.25;                                       // Guardo el 25% de los alumnos                         // O(1)
+        double umbral = (cantEst - 1) * 0.25;                           // Guardo el 25% de los alumnos                         // O(1)
         for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
             for (int j = 0; j < cantPreguntas; j++){                                                                            // O(R)
                 int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
