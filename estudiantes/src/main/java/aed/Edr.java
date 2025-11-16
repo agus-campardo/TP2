@@ -86,7 +86,7 @@ public class Edr {
                     contador += 1;                                                              // O(1)
                 }
             }
-            if (contador > mayor || (contador == mayor && vecinos[i].id < res.id)) {            // O(1)
+            if (contador > mayor || (contador == mayor && vecinos[i].id > res.id)) {            // O(1)
             mayor = contador;                                                                   // O(1)
             res = vecinos[i];                                                                   // O(1)
             }

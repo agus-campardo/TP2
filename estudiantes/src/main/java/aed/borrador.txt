@@ -104,3 +104,112 @@ public void copiarse(int est) {
     Estudiante copion = estudiantes[est]; 
     Estudiante mejorVecino = mejorVecinoParaCopiarse(copion, vecinos); 
 }
+
+
+------------------------------------------------------------------------------
+public int[] chequearCopias() {
+        int[][] grilla = new int[this.cantPreguntas][10];               // Creo la grilla de calificaciones                     // O(R)
+        int tramposos = 0;                                                                                                      // O(1)
+        for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
+            for (int j = 0; j < this.cantPreguntas; j++){                                                                       // O(R)
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
+                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea               // O(1)
+                    continue;                                                                                                   // O(1)
+                }
+                grilla[j][respuesta] +=1;                               // Sumo 1 a la posicion de la respuesta                 // O(1)
+            } 
+        } // O(E) * O(R) = O(E*R)
+        double umbral = (cantEst - 1) * 0.25;                           // Guardo el 25% de los alumnos                         // O(1)
+        for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
+            for (int j = 0; j < cantPreguntas; j++){                                                                            // O(R)
+                int respuesta = estudiantes[i].examen.preguntas[j];     // Guardo la respuesta                                  // O(1)
+                if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea               // O(1)
+                    continue;                                                                                                   // O(1)
+                }
+                if (grilla[j][respuesta] - 1 < umbral) {                // Me fijo si respondio por debajo del 25%              // O(1)
+                    estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio             // O(1)
+                    break;                                                                                                      // O(1)
+                } 
+            } 
+            if (estudiantes[i].respondidas == 0){
+                estudiantes[i].sospechoso = false;
+            }
+            if (estudiantes[i].sospechoso){                                                                                     // O(1)
+                tramposos += 1;                                                                                                 // O(1)
+            } 
+        } // O(E) * O(R) = O(E*R)
+        int[] res = new int[tramposos];                                                                                         // O(1)
+        int k = 0;                                                                                                              // O(1)
+        for (int i = 0; i < cantEst; i++){                                                                                      // O(E)
+            if (estudiantes[i].sospechoso){                             // Si es tramposo lo meto a la lista de tramposos       // O(1)
+                res[k] = i;                                                                                                     // O(1)
+                k++;                                                                                                            // O(1)
+            } 
+        } // O(E)
+        this.cantSospechosos=res.length;
+        return res;                                                                                                             // O(1)
+    }// O(E*R) + O(E*R) + O(E) = O(E*R)
+
+    public int[] chequearCopias() {
+        // 1) Armo la grilla: para cada pregunta j y respuesta r,
+        //    grilla[j][r] = cuántos estudiantes dieron esa respuesta.
+        int[][] grilla = new int[this.cantPreguntas][10];
+        for (int i = 0; i < cantEst; i++) {
+            for (int j = 0; j < cantPreguntas; j++) {
+                int respuesta = estudiantes[i].examen.preguntas[j];
+                if (respuesta == -1) continue;
+                grilla[j][respuesta] += 1;
+            }
+        }
+
+        double umbral = (cantEst - 1) * 0.25;
+
+        int tramposos = 0;
+
+        // 2) Decido quién es sospechoso
+        for (int i = 0; i < cantEst; i++) {
+            Estudiante e = estudiantes[i];
+
+            int respondidas = 0;
+            int populares = 0;
+
+            for (int j = 0; j < cantPreguntas; j++) {
+                int respuesta = e.examen.preguntas[j];
+                if (respuesta == -1) continue;
+
+                respondidas++;
+
+                // cantidad de otros que dieron la misma respuesta
+                int otros = grilla[j][respuesta] - 1;
+                if (otros >= umbral) {
+                    populares++;
+                }
+            }
+
+            // sospechoso si:
+            // - respondió al menos 2 preguntas
+            // - tiene al menos una respuesta "popular"
+            e.sospechoso = (respondidas >= 2 && populares >= 1);
+
+            // si no respondió nada o no entregó, no puede ser sospechoso
+            if (e.respondidas == 0 || !e.entrego) {
+                e.sospechoso = false;
+            }
+
+            if (e.sospechoso) {
+                tramposos++;
+            }
+        }
+
+        // 3) Construyo el arreglo de ids de sospechosos
+        int[] res = new int[tramposos];
+        int k = 0;
+        for (int i = 0; i < cantEst; i++) {
+            if (estudiantes[i].sospechoso) {
+                res[k] = i;
+                k++;
+            }
+        }
+        this.cantSospechosos = tramposos;
+        return res;
+    }
