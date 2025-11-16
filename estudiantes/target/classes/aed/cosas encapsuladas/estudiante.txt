@@ -41,7 +41,6 @@ public class Estudiante {
         - copiarPrimeraPregunta(Estudiante otro, int[] examenCanonico) O(R)
         - mejorVecinoParaCopiarse(Estudiante[] vecinos) O(R)
         - cantidadPreguntasQueMeDa(Estudiante otro) O(R)
-        - copiarDeVecino(Estudiante vecino, int[] examenCanonico) O(R)
     /*/
 
 
@@ -244,23 +243,10 @@ public class Estudiante {
     public int cantidadPreguntasQueMeDa(Estudiante otro) {
         int contador = 0; 
         for (int j = 0; j < this.examen.cantidadPreguntas(); j++) {
-            int miRespuesta = this.examen.obtenerRespuesta(j); 
-            int otroRespuesta = otro.examen.obtenerRespuesta(j); 
-            if (miRespuesta == -1 && otroRespuesta != -1) {
+            if (this.tienePreguntaSinResponder(j) && !otro.tienePreguntaSinResponder(j)) {
                 contador++; 
             }
         }
         return contador; 
-    } // O(R)
-
-
-
-    // ¡?¡?¡?¡?¡?¡?¡1
-    public void copiarDeVecino(Estudiante vecino, int[] examenCanonico) {
-        int preguntaACopiar = this.encontrarPrimeraPreguntaParaCopiar(vecino);  // O(R) 
-
-        if (preguntaACopiar != -1) {
-            this.resolverPregunta(preguntaACopiar, vecino.obtenerRespuesta(preguntaACopiar), examenCanonico[preguntaACopiar], examenCanonico.length); // O(1)
-        }
     } // O(R)
 }
