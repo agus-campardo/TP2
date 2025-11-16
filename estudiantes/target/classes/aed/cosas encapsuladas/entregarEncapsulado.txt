@@ -1,0 +1,4 @@
+public void entregar(int estudiante) {
+    estudiantes[estudiante].obtenerEstudiante().marcarEntregado();  // O(1)
+    this.cantEntregados += 1;                                       // O(1)
+} // O(1)

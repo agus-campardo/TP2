@@ -1,0 +1,37 @@
+public void copiarse(int est){
+    Estudiante estudianteActual = estudiantes[est].obtenerEstudiante();
+    Estudiante[] vecinos = conseguirVecinos(est);                                  // O(1)
+    Estudiante mejorVecino = estudianteActual.mejorVecinoParaCopiarse(vecinos);    // O(R)
+    
+    estudianteActual.copiarDeVecino(mejorVecino, examenCanonico);                  // O(R)
+} // O(R + log E)
+
+public Estudiante[] conseguirVecinos(int est) {
+    int estPorFila = (ladoAula + 1) / 2;                    
+    ArrayList<Estudiante> vecinos = new ArrayList<>();
+    Estudiante estudianteActual = estudiantes[est].obtenerEstudiante();
+    
+    if (est + 1 < estudiantes.length && estaEnRango(estudianteActual, estudiantes[est + 1].obtenerEstudiante())) {
+        vecinos.add(estudiantes[est + 1].obtenerEstudiante());
+    }
+    if (est - 1 >= 0 && estaEnRango(estudianteActual, estudiantes[est - 1].obtenerEstudiante())) {
+        vecinos.add(estudiantes[est - 1].obtenerEstudiante());
+    }
+    if (est - estPorFila >= 0 && estaEnRango(estudianteActual, estudiantes[est - estPorFila].obtenerEstudiante())) {
+        vecinos.add(estudiantes[est - estPorFila].obtenerEstudiante());
+    }
+    return vecinos.toArray(new Estudiante[0]);
+}
+
+public boolean estaEnRango(Estudiante est, Estudiante vecino){
+    if (est.obtenerFila() - 1 == vecino.obtenerFila() && est.obtenerColumna() == vecino.obtenerColumna()) {
+        return true;
+    }
+    if (est.obtenerFila() == vecino.obtenerFila() && est.obtenerColumna() == vecino.obtenerColumna() + 2) {
+        return true;
+    }
+    if (est.obtenerFila() == vecino.obtenerFila() && est.obtenerColumna() == vecino.obtenerColumna() - 2) {
+        return true;
+    }
+    return false;
+}
