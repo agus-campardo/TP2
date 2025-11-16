@@ -17,6 +17,7 @@ public class Edr {
     // Se puede modificar si agregamos cosas
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
         this.examenCanonico = new Examen(ExamenCanonico.length);                            // O(R)
+        
         this.estudiantes = new Estudiante[Cant_estudiantes];                                // O(E)
         this.ladoAula = LadoAula;                                                           // O(1)
         this.cantEst = Cant_estudiantes;                                                    // O(1)
@@ -317,7 +318,7 @@ public class Edr {
                 if (respuesta == -1){                                   // Si no respondio la pregunta, la saltea               // O(1)
                     continue;                                                                                                   // O(1)
                 }
-                if (grilla[j][respuesta] - 1 < umbral) {                // Me fijo si respondio por debajo del 25%              // O(1)
+                if (grilla[j][respuesta] < umbral) {                    // Me fijo si respondio por debajo del 25%              // O(1)
                     estudiantes[i].sospechoso = false;                  // Si lo hizo, quiere decir que no se copio             // O(1)
                     break;                                                                                                      // O(1)
                 } 
