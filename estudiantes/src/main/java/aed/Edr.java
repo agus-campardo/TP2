@@ -49,9 +49,6 @@ public class Edr {
     public void copiarse(int est){
         Estudiante[] vecinos = consguirVecinos(est);                                                    // O(1)
         Estudiante mejorVecino = mejorVecinoParaCopiarse(estudiantes[est], vecinos);                    // O(R)
-        for (Estudiante v : vecinos) {
-            System.out.print("id=" + v.id + " ");
-        }
         for (int i = 0; i < cantPreguntas; i++){                                                        // O(R)
             if (estudiantes[est].examen.preguntas[i] == -1 && mejorVecino.examen.preguntas[i] != -1){   // O(1)
                 resolver(est, i, mejorVecino.examen.preguntas[i]);                                      // O(log E)
@@ -98,17 +95,17 @@ public class Edr {
     } // O(R)
 
     public boolean estaEnRango(Estudiante est, Estudiante vecino){
-        if (est.fila == vecino.fila - 1 && est.columna == vecino.columna){              // O(1)
+        if (est.fila - 1 == vecino.fila && est.columna == vecino.columna) {
             return true;
         }
-        else if (est.fila == vecino.fila && est.columna == vecino.columna + 2){         // O(1)
+        if (est.fila == vecino.fila && est.columna == vecino.columna + 2) {
             return true;
         }
-        else if (est.fila == vecino.fila && est.columna == vecino.columna - 2){         // O(1)
+        if (est.fila == vecino.fila && est.columna == vecino.columna - 2) {
             return true;
         }
         return false;
-    } // O(1)
+    }
 
 
 //------------------------------------------------------------------------RESOLVER------------------------------------------------------------------------
@@ -341,11 +338,3 @@ public class Edr {
         return res;                                                                                                             // O(1)
     }// O(E*R) + O(E*R) + O(E) = O(E*R)
 }
-
-
-
-/* 
-Preguntas para el viernes:
-    - Se puede modificar el archivo NotaFinal? (Agregar un equals) (test "copias_de_exacto_25_porciento")
-    - No pasa el test "alumnos_se_copian_una_vez" pero es porque el lado del aula es 5 y hay 4 alumnos, los ordena de izq a der y dsp pasa a la sig fila, esta mal el test?
-*/
