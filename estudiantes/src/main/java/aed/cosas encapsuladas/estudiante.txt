@@ -232,7 +232,7 @@ public class Estudiante {
 
         for (int i = 1; i< vecinos.length; i++){
             int contador = this.cantidadPreguntasQueMeDa(vecinos[i]); 
-            if (contador > mayor || contador == mayor && vecinos[i].obtenerId() > res.obtenerId()) {
+            if (contador > mayor || (contador == mayor && vecinos[i].obtenerId() > res.obtenerId())) {
                 mayor = contador; 
                 res = vecinos[i]; 
             }

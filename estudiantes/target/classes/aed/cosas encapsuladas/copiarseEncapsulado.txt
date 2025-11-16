@@ -3,7 +3,13 @@ public void copiarse(int est){
     Estudiante[] vecinos = conseguirVecinos(est);                                  // O(1)
     Estudiante mejorVecino = estudianteActual.mejorVecinoParaCopiarse(vecinos);    // O(R)
     
-    estudianteActual.copiarDeVecino(mejorVecino, examenCanonico);                  // O(R)
+    for (int i = 0; i < cantPreguntas; i++){                            // O(R)
+        if (estudianteActual.tienePreguntaSinResponder(i) && !mejorVecino.tienePreguntaSinResponder(i)) {               // O(1)
+            int respuesta = mejorVecino.obtenerRespuesta(i);           // O(1)
+            resolver(est, i, respuesta);                               // O(log E)
+            break;
+        }
+    }
 } // O(R + log E)
 
 public Estudiante[] conseguirVecinos(int est) {
@@ -21,7 +27,7 @@ public Estudiante[] conseguirVecinos(int est) {
         vecinos.add(estudiantes[est - estPorFila].obtenerEstudiante());
     }
     return vecinos.toArray(new Estudiante[0]);
-}
+} // O(1)
 
 public boolean estaEnRango(Estudiante est, Estudiante vecino){
     if (est.obtenerFila() - 1 == vecino.obtenerFila() && est.obtenerColumna() == vecino.obtenerColumna()) {
