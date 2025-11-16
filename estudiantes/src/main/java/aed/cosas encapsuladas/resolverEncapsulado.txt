@@ -1,0 +1,10 @@
+public void resolver(int estudiante, int NroEjercicio, int res) {
+    Estudiante est = estudiantes[estudiante].obtenerEstudiante(); 
+    int respuestaCorrecta = examenCanonico[NroEjercicio]; 
+    int totalPreguntas = examenCanonico.length; 
+
+    est.resolver(NroEjercicio, respuesta, respuestaCorrecta, totalPreguntas); // O(1)
+
+    double nuevaNota = est.obtenerNota(); 
+    this.idPorNotas.actualizarNotaDesdeHandle(est, nuevaNota); // O(log E)
+}

@@ -151,7 +151,7 @@ public class HeapMinConHandle {
     public void actualizarNotaDesdeHandle(Estudiante est, double nuevaNota) {
         double notaVieja = est.obtenerNota(); // Guarda la nota actual del estudiante antes de actualizarla           // O(1)
 
-        int pos = posEnHeapDeHandel[est.obtenerId()];           // Obtiene la posición actual del estudiante dentro del heap            // O(1)
+        int pos = posEnHeapDeHandle[est.obtenerId()];           // Obtiene la posición actual del estudiante dentro del heap            // O(1)
 
         HandleEst h = heap[pos];
         h.obtenerEstudiante().cambiarNota(nuevaNota);               // Asigna la nueva nota al estudiante             // O(1)
