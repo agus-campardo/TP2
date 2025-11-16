@@ -202,7 +202,7 @@ public class Estudiante {
         return this.examen.encontrarPrimeraPreguntaParaCopiar(otro.obtenerExamen()); 
     } // O(R)
 
-    // copia la primera pregunta disponible de otro estudainte
+    // copia la primera pregunta para copiar de otro estudainte
     public void copiarPrimeraPregunta(Estudiante otro, int[] examenCanonico) {
         int preguntaACopiar = this.encontrarPrimeraPreguntaParaCopiar(otro); // O(R)
 
