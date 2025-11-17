@@ -96,8 +96,6 @@ public class Examen {
     } // O(R) en peor caso, O(1) en mejor caso  
 
     // encuentra la primera pregunta para copiar
-    // REQUIERE QUE NO ESTEM TODAS RESPONDIDAS
-    // COMPLETAR Y VER ESTA ¡!!!!!!!!!!!!!!!!!¡!¡!!!!!!!!!¡!¡!¡!¡1¡1¡1¡!¡¡!!!!!!!!¡!¡!¡1¡!¡!¡1
     public int encontrarPrimeraPreguntaParaCopiar(Examen examenAjeno) {
         for (int i = 0; i<this.preguntas.length; i++) { 
             if (this.tienePreguntaSinResponder(i) && !examenAjeno.tienePreguntaSinResponder(i)) {
