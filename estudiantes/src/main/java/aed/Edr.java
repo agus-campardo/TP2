@@ -150,19 +150,19 @@ public class Edr {
 
     public void consultarDarkWeb(int k, int[] examenDW) {
         int i = 0;
-        Estudiante[] restaurar = new Estudiante[k];
+        Estudiante[] restaurar = new Estudiante[k];     //  O(K)
         // desencolar los k peores
-        while(i < k) {
-            restaurar[i] = idPorNotas.desencolar();
+        while(i < k) {                                   // se realiza el bucle K-veces
+            restaurar[i] = idPorNotas.desencolar();      // O(1) + O(log (E))
             i++;
         }
 
         // cambiarle el examen a los k en restaurar
-        for (int j = 0; j < restaurar.length; j++){
-            restaurar[j].cambiarExamenCompleto(examenDW, examenCanonico);
-            idPorNotas.encolar(estudiantes[restaurar[j].obtenerId()]);
+        for (int j = 0; j < restaurar.length; j++){                        // O(K)
+            restaurar[j].cambiarExamenCompleto(examenDW, examenCanonico);  // O(R)  
+            idPorNotas.encolar(estudiantes[restaurar[j].obtenerId()]);     // O(log(E))
         }
-    }
+    } // O(K)+O(K*(1+log(E))+O(k*(R+log(E)) = O(k*(R+log(E))
 
         /*
         comentario: 
