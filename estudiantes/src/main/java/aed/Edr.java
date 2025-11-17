@@ -75,18 +75,24 @@ public class Edr {
 
 
     public Estudiante[] consguirVecinos(int est) { //consigue todos los vecinos del estudiante de los cuales se pueda copiar
-    int estPorFila = (ladoAula + 1) / 2;                    
-    ArrayList<Estudiante> vecinos = new ArrayList<>();
-    if (est + 1 < estudiantes.length && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est + 1].obtenerEstudiante())&& estudiantes[est+1].obtenerEstudiante().obtenerEstadoEntrega()==false) {  //vecino a la derecha
-        vecinos.add(estudiantes[est + 1].obtenerEstudiante());
-    }
-    if (est - 1 >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - 1].obtenerEstudiante())&& estudiantes[est-1].obtenerEstudiante().obtenerEstadoEntrega()==false) {  //vecino a la izquierda
-        vecinos.add(estudiantes[est - 1].obtenerEstudiante());
-    }
-    if (est - estPorFila >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - estPorFila].obtenerEstudiante())&& estudiantes[est-estPorFila].obtenerEstudiante().obtenerEstadoEntrega()==false) { //vecino adelante
-        vecinos.add(estudiantes[est - estPorFila].obtenerEstudiante());
-    }
-    return vecinos.toArray(new Estudiante[0]);
+        int estPorFila = (ladoAula + 1) / 2;                    
+        ArrayList<Estudiante> vecinos = new ArrayList<>();
+        if (est + 1 < estudiantes.length && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est + 1].obtenerEstudiante()) && 
+                estudiantes[est+1].obtenerEstudiante().obtenerEstadoEntrega()==false) {  //vecino a la derecha
+
+            vecinos.add(estudiantes[est + 1].obtenerEstudiante());
+        }
+        if (est - 1 >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - 1].obtenerEstudiante()) && 
+                estudiantes[est-1].obtenerEstudiante().obtenerEstadoEntrega()==false) {  //vecino a la izquierda
+
+            vecinos.add(estudiantes[est - 1].obtenerEstudiante());
+        }
+        if (est - estPorFila >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - estPorFila].obtenerEstudiante()) && 
+                estudiantes[est-estPorFila].obtenerEstudiante().obtenerEstadoEntrega()==false) { //vecino adelante
+
+            vecinos.add(estudiantes[est - estPorFila].obtenerEstudiante());
+        }
+        return vecinos.toArray(new Estudiante[0]);
     }
 
     public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){ //decide cual de todos los vecinos es el mejor para copiarse segun el criterio del enunciado
