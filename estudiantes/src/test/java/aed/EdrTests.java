@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 class EdrTests {
     Edr edr;
+    Edr edr2;
     int d_aula;
     int cant_alumnos;
     int[] solucion;
@@ -19,6 +20,7 @@ class EdrTests {
         cant_alumnos = 4;
         solucion = new int[]{0,1,2,3,4,5,6,7,8,9};
 
+        edr2 = new Edr(d_aula, 9, solucion);
         edr = new Edr(d_aula, cant_alumnos, solucion);
     }
 
@@ -628,30 +630,60 @@ class EdrTests {
     }
 
     // aula d_aula = 5, cant_alumnos = 4, solucion = {0,1,2,3,4,5,6,7,8,9};
+    /*
+    Aula:
+    0 _ 1 _ 2
+    3 _ 4 _ 5
+    6 _ 5 _ 8
+    */
 
     @Test
     void alumno3_se_copia_de_0() {      // Se copia una respuesta
 
-        edr.resolver(0, 0, 0);   // 0 resuelve pregunta 0 bien
+        edr2.resolver(0, 0, 0);   // 0 resuelve pregunta 0 bien
 
-        edr.copiarse(3);         
+        edr2.copiarse(3);         
 
-        double[] notas = edr.notas();
-        double[] esperado = new double[]{10.0, 0.0, 0.0, 10.0};
+        double[] notas = edr2.notas();
+        double[] esperado = new double[]{10.0, 0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         assertTrue(Arrays.equals(esperado, notas));
     }
 
     @Test
     void alumno3_se_copia_varias_veces_de_0() {     // Se copia mas de una respuesta
 
-        edr.resolver(0, 0, 0);      // 0 resuelve pregunta 0 bien
-        edr.resolver(0, 2, 2);      // 0 resuelve pregunta 2 bien
+        edr2.resolver(0, 0, 0);      // 0 resuelve pregunta 0 bien
+        edr2.resolver(0, 2, 2);      // 0 resuelve pregunta 2 bien
 
-        edr.copiarse(3);  // copia pregunta 0
-        edr.copiarse(3);  // copia pregunta 2
+        edr2.copiarse(3);  // copia pregunta 0
+        edr2.copiarse(3);  // copia pregunta 2
 
-        double[] notas = edr.notas();
-        double[] esperado = new double[]{20.0, 0.0, 0.0, 20.0};
+        double[] notas = edr2.notas();
+        double[] esperado = new double[]{20.0, 0.0, 0.0, 20.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        assertTrue(Arrays.equals(esperado, notas));
+    }
+
+    @Test
+    void alumno4_se_copia_de_1() {      // Se copia una respuesta
+
+        edr2.resolver(1, 0, 0);   // 1 resuelve pregunta 0 bien
+
+        edr2.copiarse(4);         
+
+        double[] notas = edr2.notas();
+        double[] esperado = new double[]{0.0, 10.0, 0.0, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0};
+        assertTrue(Arrays.equals(esperado, notas));
+    }
+
+    @Test
+    void alumno8_se_copia_de_5() {      // Se copia una respuesta
+
+        edr2.resolver(5, 0, 0);   // 5 resuelve pregunta 0 bien
+
+        edr2.copiarse(8);         
+
+        double[] notas = edr2.notas();
+        double[] esperado = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0, 10.0};
         assertTrue(Arrays.equals(esperado, notas));
     }
 }
