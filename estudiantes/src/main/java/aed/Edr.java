@@ -74,22 +74,22 @@ public class Edr {
     } // O(R + log E)
 
 
-    public Estudiante[] consguirVecinos(int est) {
+    public Estudiante[] consguirVecinos(int est) { //consigue todos los vecinos del estudiante de los cuales se pueda copiar
     int estPorFila = (ladoAula + 1) / 2;                    
     ArrayList<Estudiante> vecinos = new ArrayList<>();
-    if (est + 1 < estudiantes.length && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est + 1].obtenerEstudiante())) {
+    if (est + 1 < estudiantes.length && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est + 1].obtenerEstudiante())) {  //vecino a la derecha
         vecinos.add(estudiantes[est + 1].obtenerEstudiante());
     }
-    if (est - 1 >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - 1].obtenerEstudiante())) {
+    if (est - 1 >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - 1].obtenerEstudiante())) {  //vecino a la izquierda
         vecinos.add(estudiantes[est - 1].obtenerEstudiante());
     }
-    if (est - estPorFila >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - estPorFila].obtenerEstudiante())) {
+    if (est - estPorFila >= 0 && estaEnRango(estudiantes[est].obtenerEstudiante(), estudiantes[est - estPorFila].obtenerEstudiante())) { //vecino adelante
         vecinos.add(estudiantes[est - estPorFila].obtenerEstudiante());
     }
     return vecinos.toArray(new Estudiante[0]);
     }
 
-    public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){
+    public Estudiante mejorVecinoParaCopiarse(Estudiante est, Estudiante[] vecinos){ //decide cual de todos los vecinos es el mejor para copiarse segun el criterio del enunciado
         if (vecinos.length == 0) {
             return est;
         }
@@ -110,7 +110,7 @@ public class Edr {
         return res;
     }
 
-    public boolean estaEnRango(Estudiante est, Estudiante vecino){
+    public boolean estaEnRango(Estudiante est, Estudiante vecino){   // chequea si el vecino esta en un rango adentro de las posibilidades de las dimensiones del aula
         if (est.obtenerFila() - 1 == vecino.obtenerFila() && est.obtenerColumna() == vecino.obtenerColumna()) {
             return true;
         }
@@ -126,7 +126,7 @@ public class Edr {
 
 //-----------------------------------------------RESOLVER----------------------------------------------------------------
 
-    //HECHO 
+    
 
     public void resolver(int estudiante, int NroEjercicio, int res) {
         Estudiante est = this.estudiantes[estudiante].obtenerEstudiante();
@@ -175,7 +175,7 @@ public class Edr {
 
 
 //-------------------------------------------------ENTREGAR-------------------------------------------------------------
-    //TERMIANDO
+    
     public void entregar(int estudiante) {
         estudiantes[estudiante].obtenerEstudiante().marcarEntregado();  // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiantes[estudiante]); // O(log (E))
