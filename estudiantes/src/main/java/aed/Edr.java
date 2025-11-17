@@ -153,9 +153,7 @@ public class Edr {
         Estudiante[] restaurar = new Estudiante[k];
         // desencolar los k peores
         while(i < k) {
-            Estudiante e = new Estudiante(5,4,3); // creamos estudainte random, como placeHolder 
-            e = idPorNotas.desencolar();
-            restaurar[i] = e;
+            restaurar[i] = idPorNotas.desencolar();
             i++;
         }
 
