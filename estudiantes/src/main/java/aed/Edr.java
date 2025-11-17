@@ -126,7 +126,7 @@ public class Edr {
 
 //-----------------------------------------------RESOLVER----------------------------------------------------------------
 
-    //HECHO 
+    
 
     public void resolver(int estudiante, int NroEjercicio, int res) {
         Estudiante est = this.estudiantes[estudiante].obtenerEstudiante();
@@ -175,7 +175,7 @@ public class Edr {
 
 
 //-------------------------------------------------ENTREGAR-------------------------------------------------------------
-    //TERMIANDO
+    
     public void entregar(int estudiante) {
         estudiantes[estudiante].obtenerEstudiante().marcarEntregado();  // O(1)
         this.idPorNotas.actualizarNotaDesdeHandle(estudiantes[estudiante]); // O(log (E))
