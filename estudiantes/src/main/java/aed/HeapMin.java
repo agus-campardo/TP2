@@ -28,7 +28,7 @@ public class HeapMin {
     
     /*
     Primero se inicializan todas las estructuras internas del heap.
-    Luego, en armarHeap() se cargan los IDs de los estudiantes, como todos comienzan con un examen vacío, 
+    Luego, en armarHeap() se cargan los handles de los estudiantes, como todos comienzan con un examen vacío, 
     el heap ya cumple el invariante y no es necesario aplicar Heapify().
     */
 
