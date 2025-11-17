@@ -36,11 +36,7 @@ public class Estudiante implements Comparable<Estudiante>{
         - calcularNota(int[] examenCanonico) O(R)
         - actualizarNota(int totalPreguntas) O(1)
 
-        - cantidadPreguntasQueMeFaltan(Estudiante otro) O(R)
-        - encontrarPrimeraPreguntaParaCopiar(Estudiante otro) O(R)
-        - copiarPrimeraPregunta(Estudiante otro, int[] examenCanonico) O(R)
-        - mejorVecinoParaCopiarse(Estudiante[] vecinos) O(R)
-        - cantidadPreguntasQueMeDa(Estudiante otro) O(R)
+        - compareTo(Estudiante otro) O(1)
     /*/
 
 
@@ -190,65 +186,6 @@ public class Estudiante implements Comparable<Estudiante>{
     }
 
 
-    // ---- PARA OPERAR CON VECINOS 
-
-    // cuántas preguntas tengo sin responder que el otro tiene respondidas
-    public int cantidadPreguntasQueMeFaltan(Estudiante otro) {
-        return this.examen.cantidadPreguntasFaltantes(otro.obtenerExamen()); 
-    } // O(R)
-
-    // encuentra la primera pregunta para copiar 
-    public int encontrarPrimeraPreguntaParaCopiar(Estudiante otro) {
-        return this.examen.encontrarPrimeraPreguntaParaCopiar(otro.obtenerExamen()); 
-    } // O(R)
-
-    // copia la primera pregunta para copiar de otro estudainte
-    public void copiarPrimeraPregunta(Estudiante otro, int[] examenCanonico) {
-        int preguntaACopiar = this.encontrarPrimeraPreguntaParaCopiar(otro); // O(R)
-
-        if (preguntaACopiar != -1) {
-            int respuesta = otro.obtenerRespuesta(preguntaACopiar); 
-            this.examen.resolverPregunta(preguntaACopiar, respuesta);
-            this.respondidas++; 
-
-            // me fijo si la respuesta copiada es correcta 
-            if (this.examen.esRespuestaCorrecta(preguntaACopiar, examenCanonico[preguntaACopiar])) {
-                this.correctas++; 
-            }
-            this.actualizarNota(examenCanonico.length);
-        }
-    } // O(R)
-
-    // encontrar el mejor vecino para copiarse 
-    public Estudiante mejorVecinoParaCopiarse(Estudiante[] vecinos) {
-        if (vecinos.length == 0) {
-            return this; 
-            // si no hay vecinos, no se puede copiar de nadie 
-        }
-        
-        Estudiante res = vecinos[0]; 
-        int mayor = this.cantidadPreguntasQueMeDa(res); 
-
-        for (int i = 1; i< vecinos.length; i++){
-            int contador = this.cantidadPreguntasQueMeDa(vecinos[i]); 
-            if (contador > mayor || (contador == mayor && vecinos[i].obtenerId() > res.obtenerId())) {
-                mayor = contador; 
-                res = vecinos[i]; 
-            }
-        }
-        return res;
-    } // O(R)
-
-    // cuántas preguntas me puede dar un vecino
-    public int cantidadPreguntasQueMeDa(Estudiante otro) {
-        int contador = 0; 
-        for (int j = 0; j < this.examen.cantidadPreguntas(); j++) {
-            if (this.tienePreguntaSinResponder(j) && !otro.tienePreguntaSinResponder(j)) {
-                contador++; 
-            }
-        }
-        return contador; 
-    } // O(R)
 
     //------ COMPARAR
     // esto lo utilizamos para el heap. es el criterio de prioridad, 
