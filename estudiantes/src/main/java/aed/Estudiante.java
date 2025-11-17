@@ -47,9 +47,9 @@ public class Estudiante implements Comparable<Estudiante>{
 
     // CONSTRUCTOR 
     public Estudiante(int id, int cantPreguntas, int ladoAula){
-        this.id = id;                                                           // O(1)                        // O(1)
+        this.id = id;                                                           // O(1)                        
         this.correctas = 0;                                                     // O(1)
-        this.respondidas = 0;
+        this.respondidas = 0;                                                   // O(1)
         this.nota = 0.0;                                                        // O(1)
         this.entrego = false;                                                   // O(1)
         this.sospechoso = true;                                                 // O(1)
@@ -145,7 +145,7 @@ public class Estudiante implements Comparable<Estudiante>{
             int respuesta = examenCanonico.obtenerRespuesta(nroPregunta); 
             this.examen.resolverPregunta(nroPregunta, respuesta); 
         }        
-    }
+    }//O(1)
 
     // reemplaza todo el examen y recalcula todo
     public void cambiarExamenCompleto(int[] nuevoExamen, Examen examenCanonico) {
@@ -251,8 +251,10 @@ public class Estudiante implements Comparable<Estudiante>{
     } // O(R)
 
     //------ COMPARAR
+    // esto lo utilizamos para el heap. es el criterio de prioridad, 
+    //mientras mayor prioridad tenga A contra B quiere decir q A tiene que estar mas arriba en el heap que B
     @Override
-    public int compareTo(Estudiante otro){
+    public int compareTo(Estudiante otro){    
         int idOriginal= this.id;
         int idOtro = otro.id;
 
@@ -295,7 +297,7 @@ public class Estudiante implements Comparable<Estudiante>{
             }
         }
         return res;
-    }   
+    }   //O(1)
 
 
 }
