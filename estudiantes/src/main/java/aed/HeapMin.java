@@ -1,42 +1,69 @@
 package aed; 
 
 public class HeapMin {
-     private HandleEst[] heap;          // los elementos del heap son handles con estudiantes y su psocion en el heaps  
-     private int tamaño;                // cuántos hay realmente (por si desencolamos handles)
-     private int capacidad;             // max. estudiantes que puede tener el heap (siempre = E)
+    
+    /* 
+    COMENTARIOS SOBRE CORRECCIONES HECHAS:
+        antes, teníamos una clase HandleEst.java separada
+        esto nos traía problemas con el encapsulamiento, ya que como se guardaba la posición en el Heap, 
+        dependía, y le daba sentido, solo si este último estaba implementado sobre array
+
+        AHORA, es clase interna del HeapMin
+        entonces, conseguimos que el HeapMin sea el único responsable de actualizar las posiciones y, así, 
+        respetar el encapsulamiento
+
+        simplificamos el constructor: ahora crea el un Heap vacio y se va llenando conforme se crean los estudiantes
+        cuando se usa en el EdR con encolar()
+
+        agregamos métodos: desencolarHandle() (para devolver un Handle en el ejercicio de consultarDarkWeb) y 
+                           crearHandle()
+    */
+
+// ------- PARA EL HANDLE 
+    
+    public class Handle {
+        private int posEnHeap; 
+        private Estudiante est; 
+
+        public Handle(Estudiante est) {
+            this.est = est; 
+        }
+
+        // Getters - todos O(1)
+        public Estudiante obtenerEstudiante() {
+            return this.est; 
+        }
+
+        public int obtenerPosicionEnHeap() {
+            return this.posEnHeap; 
+        }
+
+        // Setter - O(1)
+        public void cambiarPosicionEnHeap(int pos) {
+            this.posEnHeap = pos; 
+        }
+    }
 
 //------------------------------------------------------------------------Constructor--------------------------------------------------
     
+    private Handle[] heap;              // los elementos del heap son handles con estudiantes y su psocion en el heaps  
+    private int tamaño;                // hanldes que tenemos
 
-    public HeapMin(int cantEstudiantes, HandleEst[] estudiantes) {
 
-        this.capacidad = cantEstudiantes;                       // O(1)
-        this.tamaño = cantEstudiantes;                          // O(1)
+    public HeapMin(int capacidad) {
+        this.tamaño = 0;  // empieza vacío
+        this.heap = new Handle[capacidad];
+    } 
 
-        this.heap = new HandleEst[cantEstudiantes];             // O(E)
-        this.armarHeap(estudiantes);                            // O(E)
 
-    } // Complejidad: O(E)
-
-    private void armarHeap(HandleEst[] estudiantes) {
-        for (int i = 0; i < capacidad; i++) {                   // Recorre todos los estudiantes                                // O(E)
-            HandleEst h = estudiantes[i];                       // copio por alaising!! el handle que estaba en estduaintes. por lo tanto si los valores del handel cambian, cambian en ambos lados     // O(1)
-            heap[i] = h;                                        // Guarda el handle del estudiante en el heap                   // O(1)
-            h.cambiarPosicionEnHeap(i);                         // Registra en que posicion del heap esta ese id                // O(1)
-        }
-    } // Complejidad: O(E)
-    
-    /*
-    Primero se inicializan todas las estructuras internas del heap.
-    Luego, en armarHeap() se cargan los handles de los estudiantes, como todos comienzan con un examen vacío, 
-    el heap ya cumple el invariante y no es necesario aplicar Heapify().
-    */
-
+    public Handle crearHandle(Estudiante est) {
+        return new Handle(est); 
+    }
 
 //------------------------------------------------------------------------Encolar--------------------------------------------------
 
 
-    public void encolar(HandleEst hEst) {
+    public void encolar(Handle  hEst) {
         
        
         heap[tamaño] = hEst;              // Inserta el handle del nuevo estudiante en la última posición libre del heap              // O(1)
@@ -60,11 +87,22 @@ public class HeapMin {
     } // Complejidad: O(log E)
 
 
+
+    public Handle desencolarHandle() {
+        Handle handleConPeorNota = heap[0]; 
+
+        intercambiar(0, tamaño - 1); 
+        tamaño--; 
+        siftDown(0); 
+
+        return handleConPeorNota; 
+    }
+
 //------------------------------------------------------------------------Actualizar nota--------------------------------------------------
 
 
-    public void actualizarNotaDesdeHandle(HandleEst h) {
-        int pos = h.ObtenerPosicionEnHeap();            // como los handels estan pasados por referencia.
+    public void actualizar(Handle  h) {
+        int pos = h.obtenerPosicionEnHeap();            // como los handels estan pasados por referencia.
                                                         // la nota ya esta actualizada. lo unico que nos falta,
                                                         // es actualizar la posicion del handel en el heap.
 
@@ -119,23 +157,23 @@ public class HeapMin {
 
 
     public void intercambiar(int i, int j) { 
-        HandleEst hEnI = heap[i]; 
-        HandleEst hEnJ = heap[j]; 
+        Handle  hEnI = heap[i]; 
+        Handle  hEnJ = heap[j]; 
         
         // intercambiamos handels en el heap y actualizamos las posiciones
         heap[i] = hEnJ;
         heap[j] = hEnI;
         hEnI.cambiarPosicionEnHeap(j);
         hEnJ.cambiarPosicionEnHeap(i);
-    }//O(1)
+    } //O(1)
 
 
 
 
     
     private boolean debeSubir(int hijo, int padre) { 
-        HandleEst hHijo = heap[hijo];                                                                           
-        HandleEst hPadre = heap[padre]; 
+        Handle  hHijo = heap[hijo];                                                                           
+        Handle  hPadre = heap[padre]; 
         boolean res;
 
         Estudiante estHijo = hHijo.obtenerEstudiante();

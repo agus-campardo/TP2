@@ -3,7 +3,15 @@ import java.util.ArrayList;
 
 public class Edr {
 
-    private HandleEst[] estudiantes;
+    /*
+    COMENTARIO SOBRE CORRECCIÓN: 
+        HeapMin se crea primero ya que es necesario para los Handles, y estos últimos se crean desde el método 
+        de crearHandle del HeapMin 
+
+        el HeapMin se crea vacío y se van encolando los Handles conforme se van creando 
+    */
+
+    private HeapMin.Handle[] estudiantes;
     private Examen examenCanonico;
     private HeapMin idPorNotas;
     private int ladoAula;
@@ -18,27 +26,29 @@ public class Edr {
 
     public Edr(int LadoAula, int Cant_estudiantes, int[] ExamenCanonico){
 
-        this.examenCanonico = new Examen(ExamenCanonico.length);                            // O(R)
-        
-        this.estudiantes = new HandleEst[Cant_estudiantes];                                 // O(E)
 
         this.ladoAula = LadoAula;                                                           // O(1)
         this.cantEstudiantes = Cant_estudiantes;                                            // O(1)
         this.cantSospechosos = 0;                                                           // O(1)
-
         this.cantPreguntas = ExamenCanonico.length;                                         // O(1)
 
         this.examenCanonico = new Examen(ExamenCanonico.length);                            // O(1)
         for (int p = 0; p < ExamenCanonico.length; p++) {                                   // O(R)
             this.examenCanonico.resolverPregunta(p, ExamenCanonico[p]);                     // O(1)
         }
+       
+        // cremos HeapMin vacío
+        this.idPorNotas = new HeapMin(Cant_estudiantes); 
+
+        // creamos los handles y vamos llenando el Heap
+        this.estudiantes = new HeapMin.Handle[Cant_estudiantes];                            // O(E)
         for (int i = 0; i < Cant_estudiantes; i++){                                         // O(E)
             Estudiante est = new  Estudiante(i, ExamenCanonico.length, ladoAula);           // O(R)
-            HandleEst h = new HandleEst(est);                                               // O(1)                        
+            HeapMin.Handle h = idPorNotas.crearHandle(est);                                  // O(1)                        
             this.estudiantes[i] = h;                                                        // O(1)
+            idPorNotas.encolar(h); 
         }
-
-        this.idPorNotas = new HeapMin(Cant_estudiantes,this.estudiantes);                   // O(E)
+                
     } // Complejidad: O(E*R)
 
 
@@ -141,7 +151,7 @@ public class Edr {
 
         est.resolverPregunta(NroEjercicio, res, respuestaCorrecta, totalPreguntas);         // O(1)
         
-        this.idPorNotas.actualizarNotaDesdeHandle(this.estudiantes[estudiante]);            // O(log E)  Actualizo el heap con el handel de l estudiante que ya tuvo actualizada su nota 
+        this.idPorNotas.actualizar(this.estudiantes[estudiante]);            // O(log E)  Actualizo el heap con el handel de l estudiante que ya tuvo actualizada su nota 
     } // Complejidad: O(log E)
 
 
@@ -150,32 +160,19 @@ public class Edr {
 
     public void consultarDarkWeb(int k, int[] examenDW) {
         int i = 0;
-        Estudiante[] restaurar = new Estudiante[k];     //  O(K)
+        HeapMin.Handle[] restaurar = new HeapMin.Handle[k];     //  O(K)
         // desencolar los k peores
         while(i < k) {                                   // se realiza el bucle K-veces
-            restaurar[i] = idPorNotas.desencolar();      // O(1) + O(log (E))
+            restaurar[i] = idPorNotas.desencolarHandle();     // O(1) + O(log (E))
             i++;
         }
 
         // cambiarle el examen a los k en restaurar
         for (int j = 0; j < restaurar.length; j++){                        // O(K)
-            restaurar[j].cambiarExamenCompleto(examenDW, examenCanonico);  // O(R)  
-            idPorNotas.encolar(estudiantes[restaurar[j].obtenerId()]);     // O(log(E))
+            restaurar[j].obtenerEstudiante().cambiarExamenCompleto(examenDW, examenCanonico);  // O(R)  
+            idPorNotas.encolar(restaurar[j]);     // O(log(E))
         }
     } // O(K)+O(K*(1+log(E))+O(k*(R+log(E)) = O(k*(R+log(E))
-
-        /*
-        comentario: 
-        En persona somos capaces de defenderlo mejor, hicimos ✨aliasing✨
-        la idea principal se baso en que los handles que estan adentro de Estudiantes son exactamente los mismos 
-        (pues estan pasados por aliasing), que los del heap solo que en distinto orden. por ende, si modificamos la informacion 
-        en uno, se modificara en la del otro. 
-        En base a esta idea, nos sirvio para implementar consulsarDarkWEb, donde al desencolar en el heapMin idPorNotas, 
-        obtenemos un puntero de memoria (? o eso asumimos al crearlo) al estudiante. por lo tanto, si guardamos en un array, 
-        nuevos espacios de memoria que apunten a cada uno de estos punteros que apunten es esos estudiantes, con tan solo cambiar el estudiante en uno,
-        se modificaria el handle del atributo Estudiantes en EdR y, por lo tanto, lo unico que nos faltaria es encolar dicho handle con el alumno 
-        ya copiado de la darkWeb en idPorNotas.  
-        */
 
 
 //-------------------------------------------------ENTREGAR-------------------------------------------------------------
@@ -183,7 +180,7 @@ public class Edr {
 
     public void entregar(int estudiante) {
         estudiantes[estudiante].obtenerEstudiante().marcarEntregado();          // O(1)
-        this.idPorNotas.actualizarNotaDesdeHandle(estudiantes[estudiante]);     // O(log (E))
+        this.idPorNotas.actualizar(estudiantes[estudiante]);     // O(log (E))
     } // Complejidad O(log E)
 
 

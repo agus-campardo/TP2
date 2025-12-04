@@ -27,7 +27,7 @@ public class Examen {
         - copiarPrimeraPregunta(Examen examenAjeno) O(R)
         - encontrarPrimeraPreguntaParaCopiar(Examen examenAjeno) O(R)
         - esRespuestaCorrecta(int nroPregunta, int respuestaCanonico) O(1)
-        - contarRespuestasCorrectas(int[] examenCanonico) O(R)
+        - -contarRespuestasCorrectas(int[] examenCanonico) O(R)
 
     /*/
 
