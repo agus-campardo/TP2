@@ -1,0 +1,74 @@
+@Test 
+void copiarse_desempata_por_id_mayor() {
+    Edr edr = new Edr(5,3, new int[]{0,1,2,3,4});
+
+    // los estudiantes 0 y 2 tienen respuestas que el 1 puede copair 
+    edr.resolver(0,0,0); // est 0 responde pregunta 0 bien 
+    edr.resolver(2,1,1); // est 2 responde pregunta 1 bien
+    edr.resolver(2,2,2); // est 2 responde pregunta 2 bien
+
+    // el est 1 se va a tner que copiar del 2 (id mayor) en vez del 0 
+    // porque los dos tiene respuestas que 1 no tiene, pero 2 tiene más 
+    edr.copiarse(1);
+    
+    double[] notas = edr.notas();
+    assertTrue(notas[1] > 0.0);
+}
+
+@Test 
+void darkweb_desempata_por_menor_id_en_empate() {
+    Edr edr = new Edr(5, 5, new int[]{0,1,2,3,4});
+
+    edr.resolver(4, 0, 0);
+    // tenemos a tpdos los estudiantes con 0 como nota, menos el 4 que ahora cuenta con 10
+
+    edr.consultarDarkWeb(2, new int[]{0,1,2,3,4});
+    // los peores son 0, 1, 2 y 3 porque tienen todos 0
+    // ahora, como hay empate, toma como los 2 peores a 0 y 1 
+    // la nota de 0 y 1 pasa a 100 (el examen de darkweb tiene mismas respuestas que el canonico)
+
+    double[] notas = edr.notas();
+    // entonces, 0 y 1 deberían tener 100, 2 y 3 deberían tener 0 
+    assertEquals(100.0, notas[0]);
+    assertEquals(100.0, notas[1]);
+    assertEquals(0.0, notas[2]);
+    assertEquals(0.0, notas[3]);
+
+}
+
+// PARA VER ESPECIFICO EL HEAP 
+@Test 
+void heap_ordena_por_prioridad() {
+    Edr edr = new Edr(5, 5, new int[]{0,1,2,3,4});
+
+    edr.entregar(0);         // est 0 entrega con 0 de nota  
+    edr.resolver(1, 0, 0);   // est 1 tiene 20 de nota, no entregó 
+    edr.resolver(3, 0, 0);   
+    edr.resolver(3, 1, 1);   // est 3 tiene 40 de nota, no entregó 
+
+                             // est 2 tiene 0 de nota, no entregó 
+                             // est 4 tiene 0 de nota, no entregó 
+    // su prioridad es la siguiente:    
+    // 1. est 2 
+    // 2. est 4 
+    // 3. est 1 
+    // 4. est 3 
+    // 5. est 0 
+
+    edr.consultarDarkWeb(2, new int[]{0,1,2,3,4}); 
+    // va a agarrar a 2 y 4 y como el examen darkweb tiene todas las preguntas correctas, su nota pasará a 100
+
+    double[] notas = edr.notas();
+
+    assertEquals(0.0, notas[0]);   
+    assertEquals(20.0, notas[1]);  
+    assertEquals(100.0, notas[2]); 
+    assertEquals(40.0, notas[3]); 
+    assertEquals(100.0, notas[4]); 
+}
+
+@Test 
+void heap_actualzia_correctamente_despues_de_entregar() {
+    
+
+}
