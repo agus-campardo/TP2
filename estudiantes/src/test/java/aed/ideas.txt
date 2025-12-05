@@ -69,6 +69,11 @@ void heap_ordena_por_prioridad() {
 
 @Test 
 void heap_actualzia_correctamente_despues_de_entregar() {
-    
+
+
+}
+
+@Test 
+void heap_encolar_después_darkweb() {
 
 }
